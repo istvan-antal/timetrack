@@ -11,8 +11,11 @@
     ],
     "files": [
         "src/main.ts",
+        "src/TimerModel.ts",
         "src/app.tsx",
-        "src/MainWindow.tsx"
+        "src/MainWindow.tsx",
+        "src/TimerForm.tsx",
+        "src/TimerProgress.tsx"
     ],
     "atom": {
         "rewriteTsconfig": true

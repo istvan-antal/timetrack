@@ -2,6 +2,9 @@ build: node_modules typings
 	./node_modules/.bin/tsc
 	./node_modules/.bin/webpack
 
+start: build
+	npm start
+
 clean:
 	rm -fr node_modules
 	rm -fr typings
@@ -18,4 +21,4 @@ node_modules: package.json
 git-hooks:
 	printf '#!/bin/bash\nmake\n' > .git/hooks/pre-commit; chmod +x .git/hooks/pre-commit
 
-.PHONY: build clean git-hooks
+.PHONY: build clean start git-hooks
