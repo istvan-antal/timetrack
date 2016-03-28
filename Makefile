@@ -1,4 +1,5 @@
 build: node_modules typings
+	./node_modules/.bin/tsc
 	./node_modules/.bin/webpack
 
 clean:
