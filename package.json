@@ -21,9 +21,9 @@
   },
   "homepage": "https://github.com/atom/electron-quick-start#readme",
   "devDependencies": {
-    "electron-prebuilt": "^0.36.0",
-    "ts-loader": "^0.8.1",
-    "webpack": "^1.12.14",
+    "electron-prebuilt": "^0.36.0"
+  },
+  "dependencies": {
     "tsd": "^0.6.5",
     "typescript": "^1.8.9"
   }
