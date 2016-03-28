@@ -14,4 +14,7 @@ node_modules: package.json
 	npm install
 	touch node_modules
 
-.PHONY: build clean
+git-hooks:
+	printf '#!/bin/bash\nmake\n' > .git/hooks/pre-commit; chmod +x .git/hooks/pre-commit
+
+.PHONY: build clean git-hooks
