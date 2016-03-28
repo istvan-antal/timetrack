@@ -1,0 +1,93 @@
+{
+  "version": "v4",
+  "repo": "borisyankov/DefinitelyTyped",
+  "ref": "master",
+  "path": "typings",
+  "bundle": "typings/tsd.d.ts",
+  "installed": {
+    "github-electron/github-electron.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "node/node.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.event-emitter.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.menu-item.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.browser-window.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.menu.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.app.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.native-image.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.web-contents.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.session.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.auto-updater.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.crash-reporter.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.content-tracing.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.clipboard.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.desktop-capturer.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.dialog.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.dom.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.ipc-main.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.global-shortcut.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.ipc-renderer.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.power-save-blocker.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.remote.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.power-monitor.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.protocol.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.screen.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.shell.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.web-frame.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "github-electron/github-electron.tray.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    }
+  }
+}
