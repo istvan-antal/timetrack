@@ -88,6 +88,12 @@
     },
     "github-electron/github-electron.tray.d.ts": {
       "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "react/react-dom.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
+    },
+    "react/react.d.ts": {
+      "commit": "672366c6c501561fd208021447b030df50c36590"
     }
   }
 }
