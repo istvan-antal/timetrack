@@ -1,7 +1,7 @@
 {
-  "name": "electron-quick-start",
+  "name": "timetrack",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "Time tracker application.",
   "main": "main.js",
   "scripts": {
     "start": "electron src/main.js"
@@ -11,10 +11,8 @@
     "url": "git+https://github.com/atom/electron-quick-start.git"
   },
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial"
+    "time",
+    "track"
   ],
   "author": "GitHub",
   "license": "CC0-1.0",
