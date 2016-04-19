@@ -2,11 +2,11 @@
 /// <reference path="../typings/react/react-dom.d.ts" />
 
 import React = require('react');
-import ReactDom = require('react-dom');
+import { render } from 'react-dom';
 
 import MainWindow = require('./MainWindow');
 
-ReactDom.render(
+render(
     <MainWindow/>,
     document.getElementById('app')
 );
