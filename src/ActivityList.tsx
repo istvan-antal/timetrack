@@ -8,12 +8,6 @@ interface ComponentProps {
 }
 
 export class ActivityList extends React.Component<ComponentProps, {}> {
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            activityName: ''
-        };
-    }
     addActivity(e) {
         if (e.key === 'Enter') {
             this.props.addActivityAction(e.target.value);
