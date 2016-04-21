@@ -1,5 +1,5 @@
 module.exports = {
-    entry: './src/app.tsx',
+    entry: './src/init.tsx',
     output: {
         filename: 'app.js'
     },

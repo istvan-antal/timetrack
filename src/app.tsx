@@ -1,12 +1,48 @@
-/// <reference path="../typings/react/react.d.ts" />
-/// <reference path="../typings/react/react-dom.d.ts" />
-
 import React = require('react');
-import { render } from 'react-dom';
+import { remote } from 'electron';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Activity } from './entities';
+import { TimerForm } from './TimerForm';
+import { ActivityList } from './ActivityList';
 
-import MainWindow = require('./MainWindow');
+interface ComponentProps {
+    panel: string
+    activities: Activity[]
+}
 
-render(
-    <MainWindow/>,
-    document.getElementById('app')
-);
+interface ComponentState {
+    panel: string
+}
+
+class App extends React.Component<ComponentProps, ComponentState> {
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            panel: 'TimerForm'
+        };
+    }
+    showSettings() {
+        this.setState({
+            panel: 'ActivityList'
+        });
+    }
+    showTimerForm() {
+        this.setState({
+            panel: 'TimerForm'
+        });
+    }
+    render() {
+        if (this.state.panel === 'ActivityList') {
+            remote.getCurrentWindow().setSize(500, 300, true);
+            return <ActivityList activities={this.props.activities}  showTimerFormAction={this.showTimerForm.bind(this)} />
+        }
+
+        remote.getCurrentWindow().setSize(300, 118, true);
+        return <TimerForm activities={this.props.activities} showSettingsAction={this.showSettings.bind(this)}/>
+    }
+};
+
+export = connect((state) => {
+    return state;
+})(App);

@@ -1,48 +1,35 @@
 import React = require('react');
-import { DataManager } from './DataManager';
 import { Activity } from './entities';
 
 interface ComponentProps {
-    onStart: (selectedActivity: string) => void
-};
-
-interface ComponentState {
+    showSettingsAction: ()=>any
     activities: Activity[]
-};
+}
 
-export = class TimerForm extends React.Component<ComponentProps, ComponentState> {
-    refs: {
-        [key: string]: (Element);
-        activity: (HTMLSelectElement);
-    }
-    constructor() {
-        super();
-        this.state = { activities: [] };
-    }
-    componentWillMount() {
-        let manager = new DataManager();
-        manager.loadEntities('Activity', Activity).then((activities) => {
-            this.setState({
-                activities: activities
-            })
-        });
-    }
-    onStart(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        this.props.onStart(this.refs['activity'].value);
-    }
+export class TimerForm extends React.Component<ComponentProps, any> {
     render() {
-        return (
-            <form>
-                <select ref="activity">
-                    {this.state.activities.map((activity) => {
-                        return <option key="{activity.id}" value="{activity.id}">{activity.name}</option>
-                    })}
-                </select>
-                <button onClick={this.onStart.bind(this)}>Start</button>
-            </form>
-        );
+        return <div className="window">
+            <div className="window-content">
+                <div className="padded-more">
+                    <form>
+                        <select className="form-control">
+                        {this.props.activities.map((actitivity, index) => {
+                            return <option key={index}>{actitivity.name}</option>
+                        })}
+                        </select>
+                    </form>
+                </div>
+            </div>
+            <footer className="toolbar toolbar-footer">
+                <div className="toolbar-actions">
+                    <button className="btn btn-primary pull-left">
+                        Start
+                    </button>
+                    <button onClick={this.props.showSettingsAction} className="btn btn-default pull-right">
+                        <span className="icon icon-cog"></span>
+                    </button>
+                </div>
+            </footer>
+        </div>
     }
 };

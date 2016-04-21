@@ -21,12 +21,15 @@
   },
   "homepage": "https://github.com/atom/electron-quick-start#readme",
   "dependencies": {
+    "electron-prebuilt": "^0.36.0",
+    "photon": "https://github.com/connors/photon.git#master",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
-    "electron-prebuilt": "^0.36.0",
+    "react-redux": "^4.4.5",
+    "redux": "^3.4.0",
     "ts-loader": "^0.8.1",
-    "webpack": "^1.12.14",
     "tsd": "^0.6.5",
-    "typescript": "^1.8.9"
+    "typescript": "^1.8.9",
+    "webpack": "^1.12.14"
   }
 }

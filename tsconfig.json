@@ -10,14 +10,13 @@
         "src/**/*.tsx"
     ],
     "files": [
-        "src/DataManager.ts",
+        "src/configureStore.ts",
         "src/entities.ts",
         "src/main.ts",
-        "src/TimerModel.ts",
-        "src/app.tsx",
-        "src/MainWindow.tsx",
-        "src/TimerForm.tsx",
-        "src/TimerProgress.tsx"
+        "src/ActivityList.tsx",
+        "src/App.tsx",
+        "src/init.tsx",
+        "src/TimerForm.tsx"
     ],
     "atom": {
         "rewriteTsconfig": true
