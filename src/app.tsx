@@ -8,7 +8,8 @@ import { ActivityList } from './ActivityList';
 
 interface ComponentProps {
     panel: string
-    activities: Activity[]
+    activities: Activity[],
+    addActivity: (name:string) => any
 }
 
 interface ComponentState {
@@ -35,7 +36,11 @@ class App extends React.Component<ComponentProps, ComponentState> {
     render() {
         if (this.state.panel === 'ActivityList') {
             remote.getCurrentWindow().setSize(500, 300, true);
-            return <ActivityList activities={this.props.activities}  showTimerFormAction={this.showTimerForm.bind(this)} />
+            return <ActivityList
+                activities={this.props.activities}
+                showTimerFormAction={this.showTimerForm.bind(this)}
+                addActivityAction={this.props.addActivity}
+            />
         }
 
         remote.getCurrentWindow().setSize(300, 118, true);
@@ -43,6 +48,21 @@ class App extends React.Component<ComponentProps, ComponentState> {
     }
 };
 
+const addActivity = (name: string) =>  {
+    return {
+        type: 'ADD_ACTIVITY',
+        name: name
+    };
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addActivity: (name) => {
+            dispatch(addActivity(name));
+        }
+    };
+}
+
 export = connect((state) => {
     return state;
-})(App);
+}, mapDispatchToProps)(App);

@@ -17,10 +17,16 @@ export default function configureStore() {
     let initialState = JSON.parse(fs.readFileSync(uiStateFile));
     return createStore(function (state, action) {
 
-        /*switch (action.type) {
-            case 'test':
-            state = Object.assign({}, state, { text: 'ho' });
-        }*/
+        switch (action.type) {
+            case 'ADD_ACTIVITY':
+            state = Object.assign({}, state, {
+                activities: state.activities.concat([{
+                    id: (new Date()).getTime(),
+                    name: action.name
+                }])
+            });
+            saveState(state);
+        }
 
         return state;
     }, initialState)

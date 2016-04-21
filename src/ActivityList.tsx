@@ -4,9 +4,22 @@ import { Activity } from './entities';
 interface ComponentProps {
     activities: Activity[]
     showTimerFormAction: ()=>any
+    addActivityAction: (name:string) => any
 }
 
-export class ActivityList extends React.Component<ComponentProps, any> {
+export class ActivityList extends React.Component<ComponentProps, {}> {
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            activityName: ''
+        };
+    }
+    addActivity(e) {
+        if (e.key === 'Enter') {
+            this.props.addActivityAction(e.target.value);
+            e.target.value = '';
+        }
+    }
     render() {
         return (
             <div className="window">
@@ -25,7 +38,7 @@ export class ActivityList extends React.Component<ComponentProps, any> {
                         </tr>
                     )})}
                         <tr>
-                            <td><input type="text"/></td>
+                            <td><input onKeyPress={this.addActivity.bind(this)} type="text"/></td>
                         </tr>
                     </tbody>
                     </table>
