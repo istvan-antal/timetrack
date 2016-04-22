@@ -1,6 +1,9 @@
 import { createStore } from 'redux';
 import { remote } from 'electron';
-import { ADD_ACTIVITY_TYPE, DELETE_ACTIVITY_TYPE } from './actions';
+import {
+    ADD_ACTIVITY_TYPE, DELETE_ACTIVITY_TYPE,
+    SHOW_ACTIVITY_LIST_TYPE, SHOW_TIMER_FORM_TYPE
+} from './actions';
 const fs = remote.require('fs');
 const app = remote.app;
 
@@ -18,6 +21,18 @@ export default function configureStore() {
     let initialState = JSON.parse(fs.readFileSync(uiStateFile));
     return createStore((state, action) => {
         switch (action.type) {
+            case SHOW_ACTIVITY_LIST_TYPE:
+            state = Object.assign({}, state, {
+                panel: 'ActivityList'
+            });
+            saveState(state);
+            break;
+            case SHOW_TIMER_FORM_TYPE:
+            state = Object.assign({}, state, {
+                panel: 'TimerForm'
+            });
+            saveState(state);
+            break;
             case DELETE_ACTIVITY_TYPE:
             state = Object.assign({}, state, {
                 activities: state.activities.filter((activity) => {

@@ -3,7 +3,7 @@ import { remote } from 'electron';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Activity } from './entities';
-import { addActivity, deleteActivity } from './actions';
+import { addActivity, deleteActivity, showActivityList, showTimerForm } from './actions';
 import { TimerForm } from './TimerForm';
 import { ActivityList } from './ActivityList';
 
@@ -11,43 +11,31 @@ interface ComponentProps {
     panel: string
     activities: Activity[],
     addActivity: (name:string) => any,
-    deleteActivity: (id:number) => any
+    deleteActivity: (id:number) => any,
+    showActivityList: () => any,
+    showTimerForm: () => any
 }
 
-interface ComponentState {
-    panel: string
-}
-
-class App extends React.Component<ComponentProps, ComponentState> {
+class App extends React.Component<ComponentProps, {}> {
     constructor(props, context) {
         super(props, context);
-        this.state = {
-            panel: 'TimerForm'
-        };
-    }
-    showSettings() {
-        this.setState({
-            panel: 'ActivityList'
-        });
-    }
-    showTimerForm() {
-        this.setState({
-            panel: 'TimerForm'
-        });
     }
     render() {
-        if (this.state.panel === 'ActivityList') {
+        if (this.props.panel === 'ActivityList') {
             remote.getCurrentWindow().setSize(500, 300, true);
             return <ActivityList
                 activities={this.props.activities}
-                showTimerFormAction={this.showTimerForm.bind(this)}
                 addActivityAction={this.props.addActivity}
                 deleteActivityAction={this.props.deleteActivity}
+                showTimerForm={this.props.showTimerForm}
             />
         }
 
         remote.getCurrentWindow().setSize(300, 118, true);
-        return <TimerForm activities={this.props.activities} showSettingsAction={this.showSettings.bind(this)}/>
+        return <TimerForm
+            activities={this.props.activities}
+            showActivityList={this.props.showActivityList}
+        />
     }
 };
 
@@ -58,6 +46,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         deleteActivity: (id) => {
             dispatch(deleteActivity(id));
+        },
+        showActivityList: () => {
+            dispatch(showActivityList());
+        },
+        showTimerForm: () => {
+            dispatch(showTimerForm());
         }
     };
 }

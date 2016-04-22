@@ -2,8 +2,8 @@ import React = require('react');
 import { Activity } from './entities';
 
 interface ComponentProps {
-    showSettingsAction: ()=>any
-    activities: Activity[]
+    activities: Activity[],
+    showActivityList: () => any
 }
 
 export class TimerForm extends React.Component<ComponentProps, any> {
@@ -26,7 +26,7 @@ export class TimerForm extends React.Component<ComponentProps, any> {
                     <button className="btn btn-primary pull-left">
                         Start
                     </button>
-                    <button onClick={this.props.showSettingsAction} className="btn btn-default pull-right">
+                    <button onClick={this.props.showActivityList} className="btn btn-default pull-right">
                         <span className="icon icon-cog"></span>
                     </button>
                 </div>
