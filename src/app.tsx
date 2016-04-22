@@ -3,17 +3,24 @@ import { remote } from 'electron';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Activity } from './entities';
-import { addActivity, deleteActivity, showActivityList, showTimerForm } from './actions';
+import {
+    addActivity, deleteActivity, showActivityList, showTimerForm,
+    startTimer, stopTimer
+} from './actions';
 import { TimerForm } from './TimerForm';
+import { TimerDisplay } from './TimerDisplay';
 import { ActivityList } from './ActivityList';
 
 interface ComponentProps {
     panel: string
+    currentActivity?: Activity,
     activities: Activity[],
     addActivity: (name:string) => any,
     deleteActivity: (id:number) => any,
     showActivityList: () => any,
-    showTimerForm: () => any
+    showTimerForm: () => any,
+    startTimer: (id:number) => any,
+    stopTimer: () => any,
 }
 
 class App extends React.Component<ComponentProps, {}> {
@@ -32,9 +39,19 @@ class App extends React.Component<ComponentProps, {}> {
         }
 
         remote.getCurrentWindow().setSize(300, 118, true);
+
+        if (this.props.panel === 'TimerDisplay') {
+            return <TimerDisplay
+                activity={this.props.currentActivity}
+                stopTimer={this.props.stopTimer}
+                showActivityList={this.props.showActivityList}
+            />
+        }
+
         return <TimerForm
             activities={this.props.activities}
             showActivityList={this.props.showActivityList}
+            startTimer={this.props.startTimer}
         />
     }
 };
@@ -52,6 +69,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         showTimerForm: () => {
             dispatch(showTimerForm());
+        },
+        startTimer: (id) => {
+            dispatch(startTimer(id));
+        },
+        stopTimer: () => {
+            dispatch(stopTimer());
         }
     };
 }

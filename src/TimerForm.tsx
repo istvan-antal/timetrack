@@ -3,19 +3,31 @@ import { Activity } from './entities';
 
 interface ComponentProps {
     activities: Activity[],
-    showActivityList: () => any
+    showActivityList: () => any,
+    startTimer: (id:number) => any,
 }
 
 export class TimerForm extends React.Component<ComponentProps, any> {
+    refs: {
+        [key: string]: (Element);
+        activityIdSelect: (HTMLSelectElement);
+    }
+    startTimer() {
+        const id = +this.refs.activityIdSelect.value
+        if (!id) {
+            return;
+        }
+        this.props.startTimer(id);
+    }
     render() {
         return <div className="window">
             <div className="window-content">
                 <div className="padded-more">
                     <form>
-                        <select className="form-control">
+                        <select ref='activityIdSelect' className="form-control">
                             <option/>
-                        {this.props.activities.map((actitivity, index) => {
-                            return <option key={index}>{actitivity.name}</option>
+                        {this.props.activities.map((activity, index) => {
+                            return <option value={activity.id} key={index}>{activity.name}</option>
                         })}
                         </select>
                     </form>
@@ -23,7 +35,7 @@ export class TimerForm extends React.Component<ComponentProps, any> {
             </div>
             <footer className="toolbar toolbar-footer">
                 <div className="toolbar-actions">
-                    <button className="btn btn-primary pull-left">
+                    <button onClick={this.startTimer.bind(this)} className="btn btn-primary pull-left">
                         Start
                     </button>
                     <button onClick={this.props.showActivityList} className="btn btn-default pull-right">

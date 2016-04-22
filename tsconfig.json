@@ -17,6 +17,7 @@
         "src/ActivityList.tsx",
         "src/App.tsx",
         "src/init.tsx",
+        "src/TimerDisplay.tsx",
         "src/TimerForm.tsx"
     ],
     "atom": {
