@@ -3,13 +3,15 @@ import { remote } from 'electron';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Activity } from './entities';
+import { addActivity, deleteActivity } from './actions';
 import { TimerForm } from './TimerForm';
 import { ActivityList } from './ActivityList';
 
 interface ComponentProps {
     panel: string
     activities: Activity[],
-    addActivity: (name:string) => any
+    addActivity: (name:string) => any,
+    deleteActivity: (id:number) => any
 }
 
 interface ComponentState {
@@ -40,6 +42,7 @@ class App extends React.Component<ComponentProps, ComponentState> {
                 activities={this.props.activities}
                 showTimerFormAction={this.showTimerForm.bind(this)}
                 addActivityAction={this.props.addActivity}
+                deleteActivityAction={this.props.deleteActivity}
             />
         }
 
@@ -48,17 +51,13 @@ class App extends React.Component<ComponentProps, ComponentState> {
     }
 };
 
-const addActivity = (name: string) =>  {
-    return {
-        type: 'ADD_ACTIVITY',
-        name: name
-    };
-}
-
 const mapDispatchToProps = (dispatch) => {
     return {
         addActivity: (name) => {
             dispatch(addActivity(name));
+        },
+        deleteActivity: (id) => {
+            dispatch(deleteActivity(id));
         }
     };
 }

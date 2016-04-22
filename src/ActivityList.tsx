@@ -5,6 +5,7 @@ interface ComponentProps {
     activities: Activity[]
     showTimerFormAction: ()=>any
     addActivityAction: (name:string) => any
+    deleteActivityAction: (id:number) => any
 }
 
 export class ActivityList extends React.Component<ComponentProps, {}> {
@@ -22,6 +23,7 @@ export class ActivityList extends React.Component<ComponentProps, {}> {
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,10 +31,12 @@ export class ActivityList extends React.Component<ComponentProps, {}> {
                         return (
                         <tr key={activity.id}>
                             <td>{activity.name}</td>
+                            <td><span onClick={this.props.deleteActivityAction.bind(null, activity.id)} className="icon icon-cancel-circled"></span></td>
                         </tr>
                     )})}
                         <tr>
                             <td><input onKeyPress={this.addActivity.bind(this)} type="text"/></td>
+                            <td></td>
                         </tr>
                     </tbody>
                     </table>

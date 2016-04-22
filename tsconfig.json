@@ -10,6 +10,7 @@
         "src/**/*.tsx"
     ],
     "files": [
+        "src/actions.ts",
         "src/configureStore.ts",
         "src/entities.ts",
         "src/main.ts",

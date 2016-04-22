@@ -1,5 +1,6 @@
 import { createStore } from 'redux';
 import { remote } from 'electron';
+import { ADD_ACTIVITY_TYPE, DELETE_ACTIVITY_TYPE } from './actions';
 const fs = remote.require('fs');
 const app = remote.app;
 
@@ -15,10 +16,17 @@ function saveState(state) {
 export default function configureStore() {
     // TODO: add auto file creation logic
     let initialState = JSON.parse(fs.readFileSync(uiStateFile));
-    return createStore(function (state, action) {
-
+    return createStore((state, action) => {
         switch (action.type) {
-            case 'ADD_ACTIVITY':
+            case DELETE_ACTIVITY_TYPE:
+            state = Object.assign({}, state, {
+                activities: state.activities.filter((activity) => {
+                    return activity.id !== action.id;
+                })
+            });
+            saveState(state);
+            break;
+            case ADD_ACTIVITY_TYPE:
             state = Object.assign({}, state, {
                 activities: state.activities.concat([{
                     id: (new Date()).getTime(),
