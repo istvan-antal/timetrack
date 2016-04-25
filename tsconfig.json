@@ -6,15 +6,16 @@
         "jsx": "react"
     },
     "filesGlob": [
+        "main.ts",
         "src/**/*.ts",
         "src/**/*.tsx"
     ],
     "files": [
+        "main.ts",
         "src/actions.ts",
         "src/configureStore.ts",
         "src/entities.ts",
         "src/formatElapsedSeconds.ts",
-        "src/main.ts",
         "src/PeriodStorage.ts",
         "src/ActivityList.tsx",
         "src/App.tsx",

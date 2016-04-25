@@ -10,9 +10,8 @@ const fs = remote.require('fs');
 const app = remote.app;
 
 const userDataPath = app.getPath('userData');
-const entitiesPath = userDataPath  + '/timetrack';
-const uiStateFile = entitiesPath + '/ui.state.json';
-const periodListFile = entitiesPath + '/periods.csv';
+const uiStateFile = userDataPath + '/ui.state.json';
+const periodListFile = userDataPath + '/periods.csv';
 const periodList = new PeriodStorage(periodListFile);
 
 function saveState(state) {
@@ -22,7 +21,13 @@ function saveState(state) {
 
 export default function configureStore() {
     // TODO: add auto file creation logic
-    let initialState = JSON.parse(fs.readFileSync(uiStateFile));
+    let initialState;
+    if (fs.existsSync(uiStateFile)) {
+        initialState = JSON.parse(fs.readFileSync(uiStateFile));
+    } else {
+        initialState = { activities: [] };
+    }
+
     const store = createStore((state, action) => {
         switch (action.type) {
             case START_TIMER_TYPE:

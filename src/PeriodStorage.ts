@@ -33,6 +33,10 @@ export class PeriodStorage {
         });
     }
     fetchPeriods(onPeriod: (activity: Activity, startTime: number, endTime: number)=>any, onDone: ()=>any) {
+        if (!fs.existsSync(this.filePath)) {
+            onDone();
+            return;
+        }
         // TODO: use fs.read instead for better scalability
         fs.readFile(this.filePath, (error, data) => {
             if (error) {

@@ -1,5 +1,9 @@
-node_modules
-typings
+/node_modules
+/typings
+/TimeTrack-darwin-x64
 /app.js
+/main.js
+/main.js.map
 src/**/*.js
 src/**/*.map
+.DS_Store

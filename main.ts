@@ -1,4 +1,4 @@
-/// <reference path="../typings/tsd.d.ts" />
+/// <reference path="typings/tsd.d.ts" />
 
 import electron = require('electron');
 // Module to control application life.
@@ -18,7 +18,7 @@ function createWindow() {
     });
 
     // and load the index.html of the app.
-    mainWindow.loadURL('file://' + __dirname + '/../app.html');
+    mainWindow.loadURL('file://' + __dirname + '/app.html');
 
     // Open the DevTools.
     //mainWindow.webContents.openDevTools({ detach: true });

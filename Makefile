@@ -2,6 +2,9 @@ build: node_modules typings
 	./node_modules/.bin/tsc
 	./node_modules/.bin/webpack
 
+osxapp: build
+	./node_modules/.bin/electron-packager . TimeTrack --platform=darwin --arch=x64 --icon=icon.icns --overwrite --ignore=typings
+
 start: build
 	npm start
 
@@ -21,4 +24,4 @@ node_modules: package.json
 git-hooks:
 	printf '#!/bin/bash\nmake\n' > .git/hooks/pre-commit; chmod +x .git/hooks/pre-commit
 
-.PHONY: build clean start git-hooks
+.PHONY: build clean start git-hooks osxapp

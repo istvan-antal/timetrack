@@ -4,7 +4,7 @@
   "description": "Time tracker application.",
   "main": "main.js",
   "scripts": {
-    "start": "electron src/main.js"
+    "start": "electron main.js"
   },
   "repository": {
     "type": "git",
@@ -31,5 +31,8 @@
     "tsd": "^0.6.5",
     "typescript": "^1.8.9",
     "webpack": "^1.12.14"
+  },
+  "devDependencies": {
+    "electron-packager": "^7.0.1"
   }
 }
