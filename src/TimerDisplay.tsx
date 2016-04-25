@@ -1,5 +1,6 @@
 import React = require('react');
 import { Activity } from './entities';
+import { formatElapsedSeconds } from './formatElapsedSeconds';
 
 interface ComponentProps {
     startTime: number
@@ -22,7 +23,7 @@ export class TimerDisplay extends React.Component<ComponentProps, { timeDisplay:
             const currentTime = (new Date()).getTime();
             const timeDiff = currentTime - this.props.startTime;
             this.setState({
-                timeDisplay: '00:00:' + Math.floor(timeDiff / 1000)
+                timeDisplay: formatElapsedSeconds(Math.floor(timeDiff / 1000))
             });
         }, 1000);
     }
