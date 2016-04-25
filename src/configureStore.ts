@@ -4,7 +4,7 @@ import { PeriodStorage } from './PeriodStorage';
 import {
     ADD_ACTIVITY_TYPE, DELETE_ACTIVITY_TYPE,
     SHOW_ACTIVITY_LIST_TYPE, SHOW_TIMER_FORM_TYPE,
-    START_TIMER_TYPE, STOP_TIMER_TYPE
+    START_TIMER_TYPE, STOP_TIMER_TYPE, TRACKED_TIME_POPULATE
 } from './actions';
 const fs = remote.require('fs');
 const app = remote.app;
@@ -23,7 +23,7 @@ function saveState(state) {
 export default function configureStore() {
     // TODO: add auto file creation logic
     let initialState = JSON.parse(fs.readFileSync(uiStateFile));
-    return createStore((state, action) => {
+    const store = createStore((state, action) => {
         switch (action.type) {
             case START_TIMER_TYPE:
             state = Object.assign({}, state, {
@@ -72,8 +72,35 @@ export default function configureStore() {
                 }])
             });
             saveState(state);
+            break;
+            case TRACKED_TIME_POPULATE:
+            state = Object.assign({}, state, {
+                activities: state.activities.map((activity) => {
+                    console.log(action.timeTracked, activity.id);
+                    if (action.timeTracked[activity.id]) {
+                        activity.timeTracked = action.timeTracked[activity.id];
+                    }
+                    return activity;
+                })
+            });
         }
 
         return state;
-    }, initialState)
+    }, initialState);
+
+    const timeTracked = {};
+
+    periodList.fetchPeriods((activity, startTime, endTime) => {
+        if (!timeTracked[activity.id]) {
+            timeTracked[activity.id] = 0;
+        }
+        timeTracked[activity.id] += endTime - startTime;
+    }, () => {
+        store.dispatch({
+            type: TRACKED_TIME_POPULATE,
+            timeTracked: timeTracked
+        });
+    });
+
+    return store;
 }

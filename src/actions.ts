@@ -4,6 +4,7 @@ export const SHOW_ACTIVITY_LIST_TYPE = 'SHOW_ACTIVITY_LIST';
 export const SHOW_TIMER_FORM_TYPE = 'SHOW_TIMER_FORM';
 export const START_TIMER_TYPE = 'START_TIMER';
 export const STOP_TIMER_TYPE = 'STOP_TIMER';
+export const TRACKED_TIME_POPULATE = 'TRACKED_TIME_POPULATE';
 
 export const addActivity = (name: string) =>  {
     return {

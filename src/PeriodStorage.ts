@@ -32,4 +32,28 @@ export class PeriodStorage {
             }
         });
     }
+    fetchPeriods(onPeriod: (activity: Activity, startTime: number, endTime: number)=>any, onDone: ()=>any) {
+        // TODO: use fs.read instead for better scalability
+        fs.readFile(this.filePath, (error, data) => {
+            if (error) {
+                throw error;
+            }
+            let position = data.indexOf("\n") + 1;
+            while (position < data.length) {
+                const lineEndPosition = data.indexOf("\n", position);
+                onLineRead(data.slice(position, lineEndPosition).toString());
+                position += lineEndPosition + 1;
+            }
+            onDone();
+        });
+
+        function onLineRead(line: string) {
+            const fields = line.split(',');
+            const activity: Activity = {
+                id: +fields[2],
+                name: fields[1]
+            };
+            onPeriod(activity, +fields[3], +fields[4]);
+        }
+    }
 }
