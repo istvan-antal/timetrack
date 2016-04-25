@@ -1,5 +1,6 @@
 import { createStore } from 'redux';
 import { remote } from 'electron';
+import { PeriodStorage } from './PeriodStorage';
 import {
     ADD_ACTIVITY_TYPE, DELETE_ACTIVITY_TYPE,
     SHOW_ACTIVITY_LIST_TYPE, SHOW_TIMER_FORM_TYPE,
@@ -8,9 +9,11 @@ import {
 const fs = remote.require('fs');
 const app = remote.app;
 
-let userDataPath = app.getPath('userData');
-let entitiesPath = userDataPath  + '/timetrack';
-let uiStateFile = entitiesPath + '/ui.state.json';
+const userDataPath = app.getPath('userData');
+const entitiesPath = userDataPath  + '/timetrack';
+const uiStateFile = entitiesPath + '/ui.state.json';
+const periodListFile = entitiesPath + '/periods.csv';
+const periodList = new PeriodStorage(periodListFile);
 
 function saveState(state) {
     // TODO: add locking
@@ -25,7 +28,7 @@ export default function configureStore() {
             case START_TIMER_TYPE:
             state = Object.assign({}, state, {
                 panel: 'TimerDisplay',
-                activityStartTime: (new Date()).getTime(),
+                activityStartTime: Math.floor((new Date()).getTime() / 1000),
                 currentActivity: state.activities.filter((activity) => {
                     return activity.id === action.id;
                 })[0]
@@ -33,6 +36,8 @@ export default function configureStore() {
             saveState(state);
             break;
             case STOP_TIMER_TYPE:
+            const now = Math.floor((new Date()).getTime() / 1000);
+            periodList.addPeriod(state.currentActivity, state.activityStartTime, now);
             state = Object.assign({}, state, {
                 panel: 'TimerForm',
                 currentActivity: null

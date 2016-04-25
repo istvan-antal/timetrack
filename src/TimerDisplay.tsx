@@ -20,10 +20,10 @@ export class TimerDisplay extends React.Component<ComponentProps, { timeDisplay:
     }
     componentWillMount() {
         this.ticker = setInterval(() => {
-            const currentTime = (new Date()).getTime();
+            const currentTime = Math.floor((new Date()).getTime() / 1000);
             const timeDiff = currentTime - this.props.startTime;
             this.setState({
-                timeDisplay: formatElapsedSeconds(Math.floor(timeDiff / 1000))
+                timeDisplay: formatElapsedSeconds(timeDiff)
             });
         }, 1000);
     }
