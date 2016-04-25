@@ -76,7 +76,6 @@ export default function configureStore() {
             case TRACKED_TIME_POPULATE:
             state = Object.assign({}, state, {
                 activities: state.activities.map((activity) => {
-                    console.log(action.timeTracked, activity.id);
                     if (action.timeTracked[activity.id]) {
                         activity.trackedTime = action.timeTracked[activity.id];
                     }
