@@ -39,7 +39,7 @@ export class TimerForm extends React.Component<ComponentProps, any> {
                         Start
                     </button>
                     <button onClick={this.props.showActivityList} className="btn btn-default pull-right">
-                        <span className="icon icon-cog"></span>
+                        <span className="icon icon-list"></span>
                     </button>
                 </div>
             </footer>

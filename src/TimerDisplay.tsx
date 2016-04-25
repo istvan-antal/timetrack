@@ -43,7 +43,7 @@ export class TimerDisplay extends React.Component<ComponentProps, { timeDisplay:
                         Stop
                     </button>
                     <button onClick={this.props.showActivityList} className="btn btn-default pull-right">
-                        <span className="icon icon-cog"></span>
+                        <span className="icon icon-list"></span>
                     </button>
                 </div>
             </footer>
