@@ -14,6 +14,7 @@ import { ActivityList } from './ActivityList';
 interface ComponentProps {
     panel: string
     currentActivity?: Activity,
+    activityStartTime?: number,
     activities: Activity[],
     addActivity: (name:string) => any,
     deleteActivity: (id:number) => any,
@@ -42,6 +43,7 @@ class App extends React.Component<ComponentProps, {}> {
 
         if (this.props.panel === 'TimerDisplay') {
             return <TimerDisplay
+                startTime={this.props.activityStartTime}
                 activity={this.props.currentActivity}
                 stopTimer={this.props.stopTimer}
                 showActivityList={this.props.showActivityList}

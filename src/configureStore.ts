@@ -25,6 +25,7 @@ export default function configureStore() {
             case START_TIMER_TYPE:
             state = Object.assign({}, state, {
                 panel: 'TimerDisplay',
+                activityStartTime: (new Date()).getTime(),
                 currentActivity: state.activities.filter((activity) => {
                     return activity.id === action.id;
                 })[0]
