@@ -78,7 +78,7 @@ export default function configureStore() {
                 activities: state.activities.map((activity) => {
                     console.log(action.timeTracked, activity.id);
                     if (action.timeTracked[activity.id]) {
-                        activity.timeTracked = action.timeTracked[activity.id];
+                        activity.trackedTime = action.timeTracked[activity.id];
                     }
                     return activity;
                 })

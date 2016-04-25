@@ -1,5 +1,6 @@
 import React = require('react');
 import { Activity } from './entities';
+import { formatElapsedSeconds } from './formatElapsedSeconds';
 
 interface ComponentProps {
     activities: Activity[]
@@ -23,14 +24,20 @@ export class ActivityList extends React.Component<ComponentProps, {}> {
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Time tracked</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                     {this.props.activities.map((activity, index) => {
+                        let trackedTime = 'N/A';
+                        if (activity.trackedTime) {
+                            trackedTime = formatElapsedSeconds(activity.trackedTime);
+                        }
                         return (
                         <tr key={activity.id}>
                             <td>{activity.name}</td>
+                            <td>{trackedTime}</td>
                             <td><span onClick={this.props.deleteActivityAction.bind(null, activity.id)} className="icon icon-cancel-circled"></span></td>
                         </tr>
                     )})}
