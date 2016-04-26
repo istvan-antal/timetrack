@@ -94,11 +94,11 @@ export default function configureStore() {
 
     const timeTracked = {};
 
-    periodList.fetchPeriods((activity, startTime, endTime) => {
+    periodList.fetchPeriods((activity, startTime, elapsedTime) => {
         if (!timeTracked[activity.id]) {
             timeTracked[activity.id] = 0;
         }
-        timeTracked[activity.id] += endTime - startTime;
+        timeTracked[activity.id] += elapsedTime;
     }, () => {
         store.dispatch({
             type: TRACKED_TIME_POPULATE,
