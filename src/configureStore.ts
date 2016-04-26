@@ -42,10 +42,19 @@ export default function configureStore() {
             break;
             case STOP_TIMER_TYPE:
             const now = Math.floor((new Date()).getTime() / 1000);
-            periodList.addPeriod(state.currentActivity, state.activityStartTime, now);
+            const elapsedTime = now - state.activityStartTime;
+            periodList.addPeriod(state.currentActivity, state.activityStartTime, elapsedTime);
             state = Object.assign({}, state, {
                 panel: 'TimerForm',
-                currentActivity: null
+                currentActivity: null,
+                activities: state.activities.map((activity) => {
+                    if (activity.id === state.currentActivity.id) {
+                        return Object.assign({}, activity, {
+                            trackedTime: (activity.trackedTime || 0) + elapsedTime
+                        });
+                    }
+                    return activity;
+                })
             });
             saveState(state);
             break;

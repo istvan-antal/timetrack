@@ -20,10 +20,10 @@ export class PeriodStorage {
             }
         });
     }
-    addPeriod(activity: Activity, startTime: number, endTime: number) {
+    addPeriod(activity: Activity, startTime: number, elapsedTime: number) {
         // TODO: use a less naive id approach
         const id = Math.floor((new Date()).getTime() / 1000)
-        const line = [id, activity.name, activity.id, startTime, endTime - startTime]
+        const line = [id, activity.name, activity.id, startTime, elapsedTime]
             .join(',') + "\n";
         // TODO: add locking/queueing
         fs.appendFile(this.filePath, line, (err) => {
