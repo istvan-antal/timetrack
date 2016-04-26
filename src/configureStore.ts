@@ -36,6 +36,19 @@ export default function configureStore() {
         };
     }
 
+    function periodAddMiddleware(store) {
+        return (next) => (action) => {
+            if (action.type === STOP_TIMER_TYPE) {
+                const state = store.getState();
+                const now = Math.floor((new Date()).getTime() / 1000);
+                const elapsedTime = now - state.activityStartTime;
+                periodList.addPeriod(state.currentActivity, state.activityStartTime, elapsedTime);
+            }
+
+            return next(action);
+        };
+    }
+
     const store = createStore((state, action) => {
         switch (action.type) {
             case START_TIMER_TYPE:
@@ -50,7 +63,7 @@ export default function configureStore() {
             case STOP_TIMER_TYPE:
             const now = Math.floor((new Date()).getTime() / 1000);
             const elapsedTime = now - state.activityStartTime;
-            periodList.addPeriod(state.currentActivity, state.activityStartTime, elapsedTime);
+
             state = Object.assign({}, state, {
                 panel: 'TimerForm',
                 currentActivity: null,
@@ -101,7 +114,7 @@ export default function configureStore() {
         }
 
         return state;
-    }, initialState, applyMiddleware(stateSaveMiddleware));
+    }, initialState, applyMiddleware(periodAddMiddleware, stateSaveMiddleware));
 
     const timeTracked = {};
 

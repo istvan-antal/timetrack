@@ -46,7 +46,7 @@ export class PeriodStorage {
             while (position < data.length) {
                 const lineEndPosition = data.indexOf("\n", position);
                 onLineRead(data.slice(position, lineEndPosition).toString());
-                position += lineEndPosition + 1;
+                position = lineEndPosition + 1;
             }
             onDone();
         });
