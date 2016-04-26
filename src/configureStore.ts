@@ -1,4 +1,4 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { remote } from 'electron';
 import { PeriodStorage } from './PeriodStorage';
 import {
@@ -28,6 +28,14 @@ export default function configureStore() {
         initialState = { activities: [] };
     }
 
+    function stateSaveMiddleware(store) {
+        return (next) => (action) => {
+            let returnValue = next(action)
+            saveState(store.getState());
+            return returnValue;
+        };
+    }
+
     const store = createStore((state, action) => {
         switch (action.type) {
             case START_TIMER_TYPE:
@@ -38,7 +46,6 @@ export default function configureStore() {
                     return activity.id === action.id;
                 })[0]
             });
-            saveState(state);
             break;
             case STOP_TIMER_TYPE:
             const now = Math.floor((new Date()).getTime() / 1000);
@@ -56,19 +63,16 @@ export default function configureStore() {
                     return activity;
                 })
             });
-            saveState(state);
             break;
             case SHOW_ACTIVITY_LIST_TYPE:
             state = Object.assign({}, state, {
                 panel: 'ActivityList'
             });
-            saveState(state);
             break;
             case SHOW_TIMER_FORM_TYPE:
             state = Object.assign({}, state, {
                 panel: 'TimerForm'
             });
-            saveState(state);
             break;
             case DELETE_ACTIVITY_TYPE:
             state = Object.assign({}, state, {
@@ -76,7 +80,6 @@ export default function configureStore() {
                     return activity.id !== action.id;
                 })
             });
-            saveState(state);
             break;
             case ADD_ACTIVITY_TYPE:
             state = Object.assign({}, state, {
@@ -85,7 +88,6 @@ export default function configureStore() {
                     name: action.name
                 }])
             });
-            saveState(state);
             break;
             case TRACKED_TIME_POPULATE:
             state = Object.assign({}, state, {
@@ -99,7 +101,7 @@ export default function configureStore() {
         }
 
         return state;
-    }, initialState);
+    }, initialState, applyMiddleware(stateSaveMiddleware));
 
     const timeTracked = {};
 
