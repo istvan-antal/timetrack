@@ -1,6 +1,6 @@
 import React = require('react');
-import { Activity } from './entities';
-import { ActivityRow } from './views/ActivityRow';
+import { Activity } from '../entities';
+import { ActivityRow } from '../views/ActivityRow';
 
 interface ComponentProps {
     activities: Activity[]

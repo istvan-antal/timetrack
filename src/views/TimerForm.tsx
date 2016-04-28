@@ -1,5 +1,5 @@
 import React = require('react');
-import { Activity } from './entities';
+import { Activity } from '../entities';
 
 interface ComponentProps {
     activities: Activity[],

@@ -1,6 +1,6 @@
 import React = require('react');
-import { Activity } from './entities';
-import { formatElapsedSeconds } from './formatElapsedSeconds';
+import { Activity } from '../entities';
+import { formatElapsedSeconds } from '../formatElapsedSeconds';
 
 interface ComponentProps {
     startTime: number

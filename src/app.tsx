@@ -7,9 +7,9 @@ import {
     addActivity, deleteActivity, switchPanel,
     startTimer, stopTimer
 } from './actions';
-import { TimerForm } from './TimerForm';
-import { TimerDisplay } from './TimerDisplay';
-import { ActivityList } from './ActivityList';
+import { TimerForm } from './views/TimerForm';
+import { TimerDisplay } from './views/TimerDisplay';
+import { ActivityList } from './views/ActivityList';
 
 interface ComponentProps {
     panel: string
