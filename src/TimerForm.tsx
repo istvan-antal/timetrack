@@ -8,12 +8,9 @@ interface ComponentProps {
 }
 
 export class TimerForm extends React.Component<ComponentProps, any> {
-    refs: {
-        [key: string]: (Element);
-        activityIdSelect: (HTMLSelectElement);
-    }
+    private activityIdSelect: HTMLSelectElement;
     startTimer() {
-        const id = +this.refs.activityIdSelect.value
+        const id = +this.activityIdSelect.value
         if (!id) {
             return;
         }
@@ -24,7 +21,7 @@ export class TimerForm extends React.Component<ComponentProps, any> {
             <div className="window-content">
                 <div className="padded-more">
                     <form>
-                        <select ref='activityIdSelect' className="form-control">
+                        <select ref={ (node) => this.activityIdSelect = node } className="form-control">
                             <option/>
                         {this.props.activities.map((activity, index) => {
                             return <option value={activity.id} key={index}>{activity.name}</option>
