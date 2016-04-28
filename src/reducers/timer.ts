@@ -1,7 +1,7 @@
 import { activities } from './activities';
 import { panel } from './panel';
 import { START_TIMER_TYPE, STOP_TIMER_TYPE, switchPanel } from '../actions';
-import { now } from '../now';
+import { now } from '../util/now';
 
 interface State {
     panel?: string,

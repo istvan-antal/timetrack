@@ -3,7 +3,7 @@ import {
     switchPanel, addActivity, populateTrackedTime,
     deleteActivity
 } from '../../src/actions';
-import { deepFreeze } from '../../src/deepFreeze';
+import { deepFreeze } from '../../src/util/deepFreeze';
 const { expect } = require('chai');
 
 describe('reducers/activities', () => {

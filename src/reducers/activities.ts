@@ -1,7 +1,7 @@
 import {
     ADD_ACTIVITY_TYPE, TRACKED_TIME_POPULATE, DELETE_ACTIVITY_TYPE
 } from '../actions';
-import { now } from '../now';
+import { now } from '../util/now';
 
 interface ActivityAction {
     type: string

@@ -1,7 +1,7 @@
 import { timer } from '../../src/reducers/timer';
 import { startTimer, stopTimer } from '../../src/actions';
-import { deepFreeze } from '../../src/deepFreeze';
-import { now } from '../../src/now';
+import { deepFreeze } from '../../src/util/deepFreeze';
+import { now } from '../../src/util/now';
 const { expect } = require('chai');
 
 describe('reducers/activities', () => {
