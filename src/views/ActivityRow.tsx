@@ -1,5 +1,5 @@
 import React = require('react');
-import { formatElapsedSeconds } from '../formatElapsedSeconds';
+import { formatElapsedSeconds } from '../util/formatElapsedSeconds';
 
 export const ActivityRow = (props) => {
     const activity = props.activity;
