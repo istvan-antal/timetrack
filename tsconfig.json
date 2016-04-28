@@ -28,6 +28,7 @@
         "src/init.tsx",
         "src/TimerDisplay.tsx",
         "src/TimerForm.tsx",
+        "src/views/ActivityRow.tsx",
         "test/reducers/activities.ts",
         "test/reducers/panel.ts",
         "test/reducers/timer.ts"

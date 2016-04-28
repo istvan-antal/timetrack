@@ -1,6 +1,6 @@
 import React = require('react');
 import { Activity } from './entities';
-import { formatElapsedSeconds } from './formatElapsedSeconds';
+import { ActivityRow } from './views/ActivityRow';
 
 interface ComponentProps {
     activities: Activity[]
@@ -17,6 +17,11 @@ export class ActivityList extends React.Component<ComponentProps, {}> {
         }
     }
     render() {
+        const activities = this.props.activities.map((activity, index) => {
+            return (
+                <ActivityRow activity={activity} deleteActivityAction={ () => this.props.deleteActivityAction(activity.id)  } key={index}/>
+            );
+        })
         return (
             <div className="window">
                 <div className="window-content">
@@ -29,18 +34,7 @@ export class ActivityList extends React.Component<ComponentProps, {}> {
                         </tr>
                     </thead>
                     <tbody>
-                    {this.props.activities.map((activity, index) => {
-                        let trackedTime = 'N/A';
-                        if (activity.trackedTime) {
-                            trackedTime = formatElapsedSeconds(activity.trackedTime);
-                        }
-                        return (
-                        <tr key={activity.id}>
-                            <td>{activity.name}</td>
-                            <td>{trackedTime}</td>
-                            <td><span onClick={this.props.deleteActivityAction.bind(null, activity.id)} className="icon icon-cancel-circled"></span></td>
-                        </tr>
-                    )})}
+                        {activities}
                         <tr>
                             <td><input onKeyPress={this.addActivity.bind(this)} type="text"/></td>
                             <td></td>

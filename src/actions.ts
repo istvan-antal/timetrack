@@ -42,6 +42,6 @@ export const stopTimer = () =>  {
 export const populateTrackedTime = (trackedTime: { [key: number]: number }) => {
     return {
         type: TRACKED_TIME_POPULATE,
-        trackedTime: trackedTime
+        trackedTime
     };
 };
