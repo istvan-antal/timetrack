@@ -6,7 +6,7 @@ interface ComponentProps {
     activities: Activity[]
     addActivityAction: (name:string) => any
     deleteActivityAction: (id:number) => any,
-    showTimerForm: () => any
+    goBack: () => any
 }
 
 export class ActivityList extends React.Component<ComponentProps, {}> {
@@ -44,7 +44,7 @@ export class ActivityList extends React.Component<ComponentProps, {}> {
                 </div>
                 <footer className="toolbar toolbar-footer">
                     <div className="toolbar-actions">
-                        <button onClick={this.props.showTimerForm} className="btn btn-default pull-right">
+                        <button onClick={this.props.goBack} className="btn btn-default pull-right">
                             <span className="icon icon-left-circled"></span>
                         </button>
                     </div>

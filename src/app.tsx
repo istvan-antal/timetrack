@@ -20,6 +20,7 @@ interface ComponentProps {
     deleteActivity: (id:number) => any,
     showActivityList: () => any,
     showTimerForm: () => any,
+    showDisplay: () => any,
     startTimer: (id:number) => any,
     stopTimer: () => any,
 }
@@ -31,11 +32,17 @@ class App extends React.Component<ComponentProps, {}> {
     render() {
         if (this.props.panel === 'ActivityList') {
             remote.getCurrentWindow().setSize(500, 300, true);
+            let goBack = this.props.showTimerForm;
+
+            if (this.props.currentActivity) {
+                goBack = this.props.showDisplay;
+            }
+
             return <ActivityList
                 activities={this.props.activities}
                 addActivityAction={this.props.addActivity}
                 deleteActivityAction={this.props.deleteActivity}
-                showTimerForm={this.props.showTimerForm}
+                goBack={goBack}
             />
         }
 
@@ -71,6 +78,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         showTimerForm: () => {
             dispatch(switchPanel('TimerForm'));
+        },
+        showDisplay: () => {
+            dispatch(switchPanel('TimerDisplay'));
         },
         startTimer: (id) => {
             dispatch(startTimer(id));
