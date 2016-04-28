@@ -8,20 +8,29 @@
     "filesGlob": [
         "main.ts",
         "src/**/*.ts",
-        "src/**/*.tsx"
+        "src/**/*.tsx",
+        "test/**/*.ts"
     ],
     "files": [
         "main.ts",
         "src/actions.ts",
         "src/configureStore.ts",
+        "src/deepFreeze.ts",
         "src/entities.ts",
         "src/formatElapsedSeconds.ts",
+        "src/now.ts",
         "src/PeriodStorage.ts",
+        "src/reducers/activities.ts",
+        "src/reducers/panel.ts",
+        "src/reducers/timer.ts",
         "src/ActivityList.tsx",
         "src/App.tsx",
         "src/init.tsx",
         "src/TimerDisplay.tsx",
-        "src/TimerForm.tsx"
+        "src/TimerForm.tsx",
+        "test/reducers/activities.ts",
+        "test/reducers/panel.ts",
+        "test/reducers/timer.ts"
     ],
     "atom": {
         "rewriteTsconfig": true

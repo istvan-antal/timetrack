@@ -21,7 +21,7 @@ function createWindow() {
     mainWindow.loadURL('file://' + __dirname + '/app.html');
 
     // Open the DevTools.
-    //mainWindow.webContents.openDevTools({ detach: true });
+    mainWindow.webContents.openDevTools({ detach: true });
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function() {

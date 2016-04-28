@@ -2,6 +2,9 @@ build: node_modules typings
 	./node_modules/.bin/tsc
 	./node_modules/.bin/webpack
 
+test: build
+	./node_modules/.bin/mocha --recursive
+
 mac: build
 	./node_modules/.bin/electron-packager . TimeTrack --platform=darwin --arch=x64 --icon=icon.icns --overwrite --ignore=typings
 

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Activity } from './entities';
 import {
-    addActivity, deleteActivity, showActivityList, showTimerForm,
+    addActivity, deleteActivity, switchPanel,
     startTimer, stopTimer
 } from './actions';
 import { TimerForm } from './TimerForm';
@@ -67,10 +67,10 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(deleteActivity(id));
         },
         showActivityList: () => {
-            dispatch(showActivityList());
+            dispatch(switchPanel('ActivityList'));
         },
         showTimerForm: () => {
-            dispatch(showTimerForm());
+            dispatch(switchPanel('TimerForm'));
         },
         startTimer: (id) => {
             dispatch(startTimer(id));

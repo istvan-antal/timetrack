@@ -6,4 +6,6 @@
 /main.js.map
 src/**/*.js
 src/**/*.map
+test/**/*.js
+test/**/*.map
 .DS_Store
