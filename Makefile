@@ -15,9 +15,9 @@ clean:
 	rm -fr node_modules
 	rm -fr typings
 
-typings: tsd.json
-	./node_modules/.bin/tsd reinstall
-	./node_modules/.bin/tsd rebundle
+typings: typings.json
+	./node_modules/.bin/typings install
+	./node_modules/.bin/typings prune
 	touch typings
 
 node_modules: package.json
