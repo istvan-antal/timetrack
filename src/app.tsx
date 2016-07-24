@@ -9,7 +9,7 @@ import {
 } from './actions';
 import { TimerForm } from './views/TimerForm';
 import { TimerDisplay } from './views/TimerDisplay';
-import { ActivityList } from './views/ActivityList';
+const { ActivityList } = require('./views/ActivityList.js');
 
 interface ComponentProps {
     panel: string

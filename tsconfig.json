@@ -25,8 +25,6 @@
         "src/util/now.ts",
         "src/App.tsx",
         "src/init.tsx",
-        "src/views/ActivityList.tsx",
-        "src/views/ActivityRow.tsx",
         "src/views/TimerDisplay.tsx",
         "src/views/TimerForm.tsx",
         "test/reducers/activities.ts",

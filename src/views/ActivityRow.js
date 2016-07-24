@@ -1,5 +1,5 @@
-import React = require('react');
-import { formatElapsedSeconds } from '../util/formatElapsedSeconds';
+import React from 'react';
+import { formatElapsedSeconds } from '../util/formatElapsedSeconds.ts';
 
 export const ActivityRow = (props) => {
     const activity = props.activity;
@@ -12,7 +12,9 @@ export const ActivityRow = (props) => {
         <tr key={activity.id}>
             <td>{activity.name}</td>
             <td>{trackedTime}</td>
-            <td><span onClick={ deleteActivityAction } className="icon icon-cancel-circled"></span></td>
+            <td>
+                <span onClick={deleteActivityAction} className="icon icon-cancel-circled"></span>
+            </td>
         </tr>
     );
 };
