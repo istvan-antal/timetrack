@@ -1,5 +1,5 @@
 build: node_modules typings
-	./node_modules/.bin/tsc
+	./node_modules/.bin/eslint .
 	./node_modules/.bin/webpack
 
 test: build

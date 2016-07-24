@@ -1,6 +1,7 @@
 module.exports = {
     entry: './src/init.tsx',
     output: {
+        path: `${__dirname}/dist`,
         filename: 'app.js'
     },
     resolve: {
@@ -8,21 +9,27 @@ module.exports = {
     },
     module: {
         loaders: [{
+            test: /.js$/,
+            loader: 'babel-loader',
+            query: {
+                presets: ['es2015', 'react', 'stage-2']
+            }
+        }, {
             test: /\.ts$/,
             loader: 'ts-loader'
-        },{
+        }, {
             test: /\.tsx$/,
             loader: 'ts-loader'
         }]
     },
     externals: [
-        (function() {
-            var IGNORES = [
+        (function externals() {
+            const IGNORES = [
                 'electron'
             ];
-            return function(context, request, callback) {
+            return function req(context, request, callback) {
                 if (IGNORES.indexOf(request) >= 0) {
-                    return callback(null, "require('" + request + "')");
+                    return callback(null, `require('${request}')`);
                 }
                 return callback();
             };
