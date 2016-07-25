@@ -3,6 +3,7 @@ import { remote } from 'electron';
 import { PeriodStorage } from './PeriodStorage';
 import { timer } from './reducers/timer';
 import { populateTrackedTime, STOP_TIMER_TYPE } from './actions';
+import { now } from './util/now';
 const fs = remote.require('fs');
 const app = remote.app;
 
@@ -37,8 +38,7 @@ export default function configureStore() {
         return (next) => (action) => {
             if (action.type === STOP_TIMER_TYPE) {
                 const state = store.getState();
-                const now = Math.floor((new Date()).getTime() / 1000);
-                const elapsedTime = now - state.activityStartTime;
+                const elapsedTime = now() - state.activityStartTime;
                 periodList.addPeriod(state.currentActivity, state.activityStartTime, elapsedTime);
             }
 

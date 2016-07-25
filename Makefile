@@ -2,8 +2,8 @@ build: node_modules typings
 	./node_modules/.bin/eslint .
 	./node_modules/.bin/webpack
 
-test: build
-	./node_modules/.bin/mocha --recursive
+test: build dist/test
+	./node_modules/.bin/mocha --recursive dist/test/**/*.js
 
 mac: build
 	./node_modules/.bin/electron-packager . TimeTrack --platform=darwin --arch=x64 --icon=icon.icns --overwrite --ignore=typings
@@ -14,6 +14,10 @@ start: build
 clean:
 	rm -fr node_modules
 	rm -fr typings
+	rm -fr dist
+
+dist/test:
+	./node_modules/.bin/tsc
 
 typings: typings.json
 	./node_modules/.bin/typings install

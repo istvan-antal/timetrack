@@ -1,10 +1,10 @@
 {
-    "compileOnSave": false,
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "sourceMap": true,
-        "jsx": "react"
+        "jsx": "react",
+        "outDir": "dist/"
     },
     "filesGlob": [
         "main.ts",
@@ -29,7 +29,8 @@
         "src/views/TimerForm.tsx",
         "test/reducers/activities.ts",
         "test/reducers/panel.ts",
-        "test/reducers/timer.ts"
+        "test/reducers/timer.ts",
+        "test/util/formatElapsedSeconds.ts"
     ],
     "atom": {
         "rewriteTsconfig": true

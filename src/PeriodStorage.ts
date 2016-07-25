@@ -1,5 +1,6 @@
 import { remote } from 'electron';
 import { Activity } from './entities';
+import { now } from './util/now';
 const fs = remote.require('fs');
 
 export class PeriodStorage {
@@ -22,7 +23,7 @@ export class PeriodStorage {
     }
     addPeriod(activity: Activity, startTime: number, elapsedTime: number) {
         // TODO: use a less naive id approach
-        const id = Math.floor((new Date()).getTime() / 1000)
+        const id = now();
         const line = [id, activity.name, activity.id, startTime, elapsedTime]
             .join(',') + "\n";
         // TODO: add locking/queueing
