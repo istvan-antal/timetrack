@@ -91,6 +91,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 }
 
-export = connect((state) => {
+export default connect((state) => {
     return state;
 }, mapDispatchToProps)(App);
