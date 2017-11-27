@@ -1,7 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 import { ActivityRow } from './ActivityRow';
 
-export class ActivityList extends React.Component {
+export class ActivityList extends React.Component<any, any> {
     addActivity(event) {
         const e = event;
         if (e.key === 'Enter') {

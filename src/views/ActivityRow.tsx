@@ -1,7 +1,7 @@
-import React from 'react';
-import { formatElapsedSeconds } from '../util/formatElapsedSeconds.ts';
+import * as React from 'react';
+import { formatElapsedSeconds } from '../util/formatElapsedSeconds';
 
-export const ActivityRow = (props) => {
+export const ActivityRow = (props: any) => {
     const activity = props.activity;
     const deleteActivityAction = props.deleteActivityAction;
     let trackedTime = 'N/A';

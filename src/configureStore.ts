@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { remote } from 'electron';
 import { PeriodStorage } from './PeriodStorage';
 import { timer } from './reducers/timer';
-import { populateTrackedTime, STOP_TIMER_TYPE } from './actions';
+import { populateTrackedTime, STOP_TIMER_TYPE, stopTimer, startTimer } from './actions';
 import { now } from './util/now';
 const fs = remote.require('fs');
 const app = remote.app;
@@ -59,6 +59,26 @@ export default function configureStore() {
         timeTracked[activity.id] += elapsedTime;
     }, () => {
         store.dispatch(populateTrackedTime(timeTracked));
+    });
+
+    let suspendedId;
+
+    remote.powerMonitor.on('suspend', () => {
+        const state = store.getState();
+        if (!state.currentActivity) {
+            suspendedId = undefined;
+            return;
+        }
+
+        suspendedId = state.currentActivity.id;
+        store.dispatch(stopTimer());
+    });
+
+    remote.powerMonitor.on('resume', () => {
+        if (!suspendedId) {
+            return;
+        }
+        store.dispatch(startTimer(suspendedId));
     });
 
     return store;
