@@ -1,7 +1,7 @@
 import { activities } from '../../src/reducers/activities';
 import {
-    switchPanel, addActivity, populateTrackedTime,
-    deleteActivity
+    addActivity, populateTrackedTime,
+    deleteActivity,
 } from '../../src/actions';
 import { deepFreeze } from '../../src/util/deepFreeze';
 const { expect } = require('chai');
@@ -25,29 +25,29 @@ describe('reducers/activities', () => {
     it('should populate time', () => {
         const initialState = deepFreeze([{
             id: 1,
-            name: 'Hiking'
-        }, {
-            id: 2,
-            name: 'Biking'
-        }, {
-            id: 10,
-            name: 'Cooking'
-        }]);
-        const expectedSate = deepFreeze([{
-            id: 1,
-            name: 'Hiking'
+            name: 'Hiking',
         }, {
             id: 2,
             name: 'Biking',
-            trackedTime: 302
         }, {
             id: 10,
             name: 'Cooking',
-            trackedTime: 3600
+        }]);
+        const expectedSate = deepFreeze([{
+            id: 1,
+            name: 'Hiking',
+        }, {
+            id: 2,
+            name: 'Biking',
+            trackedTime: 302,
+        }, {
+            id: 10,
+            name: 'Cooking',
+            trackedTime: 3600,
         }]);
         const nextState = activities(initialState, populateTrackedTime({
             2: 302,
-            10: 3600
+            10: 3600,
         }));
         expect(nextState).to.deep.equal(expectedSate);
     });
@@ -55,21 +55,22 @@ describe('reducers/activities', () => {
     it('should delete activity', () => {
         const initialState = deepFreeze([{
             id: 1,
-            name: 'Hiking'
+            name: 'Hiking',
         }, {
             id: 2,
-            name: 'Biking'
+            name: 'Biking',
         }, {
             id: 10,
-            name: 'Cooking'
+            name: 'Cooking',
         }]);
         const expectedSate = deepFreeze([{
             id: 1,
-            name: 'Hiking'
+            name: 'Hiking',
         }, {
             id: 10,
-            name: 'Cooking'
+            name: 'Cooking',
         }]);
+        // tslint:disable-next-line:no-magic-numbers
         const nextState = activities(initialState, deleteActivity(2));
         expect(nextState).to.deep.equal(expectedSate);
     });

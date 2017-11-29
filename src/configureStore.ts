@@ -12,30 +12,36 @@ const uiStateFile = userDataPath + '/ui.state.json';
 const periodListFile = userDataPath + '/periods.csv';
 const periodList = new PeriodStorage(periodListFile);
 
-function saveState(state) {
+// tslint:disable-next-line:no-any
+const saveState = (state: any) => {
     // TODO: add locking
     fs.writeFile(uiStateFile, JSON.stringify(state));
 };
 
-export default function configureStore() {
+export default () => {
     // TODO: add auto file creation logic
     let initialState;
+    // tslint:disable-next-line:prefer-conditional-expression
     if (fs.existsSync(uiStateFile)) {
         initialState = JSON.parse(fs.readFileSync(uiStateFile));
     } else {
         initialState = { activities: [] };
     }
 
-    function stateSaveMiddleware(store) {
-        return (next) => (action) => {
-            let returnValue = next(action)
+    // tslint:disable-next-line:no-shadowed-variable no-any
+    const stateSaveMiddleware = (store: any) => (
+        // tslint:disable-next-line:no-any
+        (next: any) => (action: any) => {
+            const returnValue = next(action);
             saveState(store.getState());
             return returnValue;
-        };
-    }
+        }
+    );
 
-    function periodAddMiddleware(store) {
-        return (next) => (action) => {
+    // tslint:disable-next-line:no-shadowed-variable no-any
+    const periodAddMiddleware = (store: any) => (
+        // tslint:disable-next-line:no-any
+        (next: any) => (action: any) => {
             if (action.type === STOP_TIMER_TYPE) {
                 const state = store.getState();
                 const elapsedTime = now() - state.activityStartTime;
@@ -43,13 +49,13 @@ export default function configureStore() {
             }
 
             return next(action);
-        };
-    }
+        }
+    );
 
     const store = createStore(timer, initialState, applyMiddleware(periodAddMiddleware, stateSaveMiddleware));
 
     const timeTracked: {
-        [key: number]: number
+        [key: number]: number;
     } = {};
 
     periodList.fetchPeriods((activity, startTime, elapsedTime) => {
@@ -82,4 +88,4 @@ export default function configureStore() {
     });
 
     return store;
-}
+};

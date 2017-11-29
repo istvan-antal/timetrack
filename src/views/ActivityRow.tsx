@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { formatElapsedSeconds } from '../util/formatElapsedSeconds';
 
+// tslint:disable-next-line:variable-name no-any
 export const ActivityRow = (props: any) => {
     const activity = props.activity;
     const deleteActivityAction = props.deleteActivityAction;

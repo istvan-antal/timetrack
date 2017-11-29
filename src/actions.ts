@@ -5,43 +5,31 @@ export const START_TIMER_TYPE = 'START_TIMER';
 export const STOP_TIMER_TYPE = 'STOP_TIMER';
 export const TRACKED_TIME_POPULATE = 'TRACKED_TIME_POPULATE';
 
-export const addActivity = (name: string) =>  {
-    return {
-        type: ADD_ACTIVITY_TYPE,
-        name
-    };
-}
+export const addActivity = (name: string) =>  ({
+    type: ADD_ACTIVITY_TYPE,
+    name,
+});
 
-export const deleteActivity = (id: number) =>  {
-    return {
-        type: DELETE_ACTIVITY_TYPE,
-        id
-    };
-}
+export const deleteActivity = (id: number) =>  ({
+    type: DELETE_ACTIVITY_TYPE,
+    id,
+});
 
-export const switchPanel = (panel: string) =>  {
-    return {
-        type: SWITCH_PANEL_TYPE,
-        panel
-    };
-}
+export const switchPanel = (panel: string) => ({
+    type: SWITCH_PANEL_TYPE,
+    panel,
+});
 
-export const startTimer = (id: number) =>  {
-    return {
-        type: START_TIMER_TYPE,
-        id
-    };
-}
+export const startTimer = (id: number) => ({
+    type: START_TIMER_TYPE,
+    id,
+});
 
-export const stopTimer = () =>  {
-    return {
-        type: STOP_TIMER_TYPE
-    };
-}
+export const stopTimer = () =>  ({
+    type: STOP_TIMER_TYPE,
+});
 
-export const populateTrackedTime = (trackedTime: { [key: number]: number }) => {
-    return {
-        type: TRACKED_TIME_POPULATE,
-        trackedTime
-    };
-};
+export const populateTrackedTime = (trackedTime: { [key: number]: number }) => ({
+    type: TRACKED_TIME_POPULATE,
+    trackedTime,
+});

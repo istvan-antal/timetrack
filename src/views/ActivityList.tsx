@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ActivityRow } from './ActivityRow';
 
+// tslint:disable-next-line:no-any
 export class ActivityList extends React.Component<any, any> {
     addActivity(event) {
         const e = event;

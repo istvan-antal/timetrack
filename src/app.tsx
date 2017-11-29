@@ -1,36 +1,36 @@
 import React = require('react');
 import { remote } from 'electron';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Activity } from './entities';
 import {
     addActivity, deleteActivity, switchPanel,
-    startTimer, stopTimer
+    startTimer, stopTimer,
 } from './actions';
 import { TimerForm } from './views/TimerForm';
 import { TimerDisplay } from './views/TimerDisplay';
 import { ActivityList } from './views/ActivityList';
 
 interface ComponentProps {
-    panel: string
-    currentActivity?: Activity,
-    activityStartTime?: number,
-    activities: Activity[],
-    addActivity: (name:string) => any,
-    deleteActivity: (id:number) => any,
-    showActivityList: () => any,
-    showTimerForm: () => any,
-    showDisplay: () => any,
-    startTimer: (id:number) => any,
-    stopTimer: () => any,
+    panel: string;
+    currentActivity?: Activity;
+    activityStartTime?: number;
+    activities: Activity[];
+    addActivity: (name: string) => void;
+    deleteActivity: (id: number) => void;
+    showActivityList: () => void;
+    showTimerForm: () => void;
+    showDisplay: () => void;
+    startTimer: (id: number) => void;
+    stopTimer: () => void;
 }
 
-class App extends React.Component<ComponentProps, {}> {
+class App extends React.Component<ComponentProps> {
     constructor(props, context) {
         super(props, context);
     }
     render() {
         if (this.props.panel === 'ActivityList') {
+            // tslint:disable-next-line:no-magic-numbers
             remote.getCurrentWindow().setSize(500, 300, true);
             let goBack = this.props.showTimerForm;
 
@@ -43,9 +43,10 @@ class App extends React.Component<ComponentProps, {}> {
                 addActivityAction={this.props.addActivity}
                 deleteActivityAction={this.props.deleteActivity}
                 goBack={goBack}
-            />
+            />;
         }
 
+        // tslint:disable-next-line:no-magic-numbers
         remote.getCurrentWindow().setSize(300, 118, true);
 
         if (this.props.panel === 'TimerDisplay') {
@@ -54,43 +55,39 @@ class App extends React.Component<ComponentProps, {}> {
                 activity={this.props.currentActivity}
                 stopTimer={this.props.stopTimer}
                 showActivityList={this.props.showActivityList}
-            />
+            />;
         }
 
         return <TimerForm
             activities={this.props.activities}
             showActivityList={this.props.showActivityList}
             startTimer={this.props.startTimer}
-        />
+        />;
     }
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addActivity: (name) => {
-            dispatch(addActivity(name));
-        },
-        deleteActivity: (id) => {
-            dispatch(deleteActivity(id));
-        },
-        showActivityList: () => {
-            dispatch(switchPanel('ActivityList'));
-        },
-        showTimerForm: () => {
-            dispatch(switchPanel('TimerForm'));
-        },
-        showDisplay: () => {
-            dispatch(switchPanel('TimerDisplay'));
-        },
-        startTimer: (id) => {
-            dispatch(startTimer(id));
-        },
-        stopTimer: () => {
-            dispatch(stopTimer());
-        }
-    };
 }
 
-export default connect((state) => {
-    return state;
-}, mapDispatchToProps)(App);
+const mapDispatchToProps = dispatch => ({
+    addActivity: name => {
+        dispatch(addActivity(name));
+    },
+    deleteActivity: id => {
+        dispatch(deleteActivity(id));
+    },
+    showActivityList: () => {
+        dispatch(switchPanel('ActivityList'));
+    },
+    showTimerForm: () => {
+        dispatch(switchPanel('TimerForm'));
+    },
+    showDisplay: () => {
+        dispatch(switchPanel('TimerDisplay'));
+    },
+    startTimer: id => {
+        dispatch(startTimer(id));
+    },
+    stopTimer: () => {
+        dispatch(stopTimer());
+    },
+});
+
+export default connect(state => state, mapDispatchToProps)(App);

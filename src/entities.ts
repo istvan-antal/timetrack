@@ -1,5 +1,5 @@
 export interface Activity {
-    id: number
-    name: string
-    trackedTime?: number
+    id: number;
+    name: string;
+    trackedTime?: number;
 }

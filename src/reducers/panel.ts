@@ -1,6 +1,6 @@
 import { SWITCH_PANEL_TYPE } from '../actions';
 
-export const panel = (state, action: { type: string, panel?: string }) => {
+export const panel = (state, action: { type: string; panel?: string }) => {
     if (state === undefined) {
         state = 'TimerForm';
     }

@@ -3,35 +3,38 @@ import { Activity } from '../entities';
 import { formatElapsedSeconds } from '../util/formatElapsedSeconds';
 
 interface ComponentProps {
-    startTime: number
-    activity: Activity
-    showActivityList: () => any
-    stopTimer: () => any
+    startTime: number;
+    activity: Activity;
+    showActivityList: () => void;
+    stopTimer: () => void;
 }
 
 export class TimerDisplay extends React.Component<ComponentProps, { timeDisplay: string }> {
-    private ticker: NodeJS.Timer
+    private ticker: NodeJS.Timer;
     constructor(props, context) {
         super(props, context);
-        //TODO: calculate this to prevent "flicker"
+        // TODO: calculate this to prevent "flicker"
         this.state = {
-            timeDisplay: '00:00:00'
-        }
+            timeDisplay: '00:00:00',
+        };
     }
     componentWillMount() {
         this.ticker = setInterval(() => {
+            // tslint:disable-next-line:no-magic-numbers
             const currentTime = Math.floor((new Date()).getTime() / 1000);
             const timeDiff = currentTime - this.props.startTime;
             this.setState({
-                timeDisplay: formatElapsedSeconds(timeDiff)
+                timeDisplay: formatElapsedSeconds(timeDiff),
             });
+        // tslint:disable-next-line:no-magic-numbers
         }, 1000);
     }
     componentWillUnmount() {
         clearInterval(this.ticker);
     }
     render() {
-        return <div className="window">
+        return (
+        <div className="window">
             <div className="window-content">
                 <div className="padded-more">
                     {this.state.timeDisplay} - {this.props.activity.name}
@@ -48,5 +51,6 @@ export class TimerDisplay extends React.Component<ComponentProps, { timeDisplay:
                 </div>
             </footer>
         </div>
+        );
     }
-};
+}
