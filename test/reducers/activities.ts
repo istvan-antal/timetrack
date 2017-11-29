@@ -46,8 +46,10 @@ describe('reducers/activities', () => {
             trackedTime: 3600,
         }]);
         const nextState = activities(initialState, populateTrackedTime({
-            2: 302,
-            10: 3600,
+            // tslint:disable-next-line:no-magic-numbers
+            2: [302, 0],
+            // tslint:disable-next-line:no-magic-numbers
+            10: [3600, 0],
         }));
         expect(nextState).to.deep.equal(expectedSate);
     });

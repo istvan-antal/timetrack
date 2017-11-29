@@ -29,7 +29,7 @@ export const stopTimer = () =>  ({
     type: STOP_TIMER_TYPE,
 });
 
-export const populateTrackedTime = (trackedTime: { [key: number]: number }) => ({
+export const populateTrackedTime = (trackedTime: { [key: number]: [number, number] }) => ({
     type: TRACKED_TIME_POPULATE,
     trackedTime,
 });

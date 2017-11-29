@@ -1,8 +1,18 @@
 import * as React from 'react';
 import { ActivityRow } from './ActivityRow';
 
-// tslint:disable-next-line:no-any
-export class ActivityList extends React.Component<any, any> {
+interface Props {
+    activities: Array<{
+        id: number;
+        name: string;
+        trackedTime?: number;
+    }>;
+    addActivityAction(name: string);
+    deleteActivityAction(id: number);
+    goBack();
+}
+
+export class ActivityList extends React.Component<Props> {
     addActivity(event) {
         const e = event;
         if (e.key === 'Enter') {
@@ -27,6 +37,7 @@ export class ActivityList extends React.Component<any, any> {
                             <tr>
                                 <th>Name</th>
                                 <th>Time tracked</th>
+                                <th>Today</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -36,6 +47,8 @@ export class ActivityList extends React.Component<any, any> {
                                 <td>
                                     <input onKeyPress={this.addActivity.bind(this)} type="text" />
                                 </td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                             </tr>
                         </tbody>

@@ -1,21 +1,26 @@
 import * as React from 'react';
 import { formatElapsedSeconds } from '../util/formatElapsedSeconds';
 
-// tslint:disable-next-line:variable-name no-any
-export const ActivityRow = (props: any) => {
-    const activity = props.activity;
-    const deleteActivityAction = props.deleteActivityAction;
-    let trackedTime = 'N/A';
-    if (activity.trackedTime) {
-        trackedTime = formatElapsedSeconds(activity.trackedTime);
-    }
-    return (
-        <tr key={activity.id}>
-            <td>{activity.name}</td>
-            <td>{trackedTime}</td>
-            <td>
-                <span onClick={deleteActivityAction} className="icon icon-cancel-circled"></span>
-            </td>
-        </tr>
-    );
-};
+interface Activity {
+    id: number;
+    name: string;
+    trackedTime?: number;
+    trackedTimeToday?: number;
+}
+
+interface Props {
+    activity: Activity;
+    deleteActivityAction();
+}
+
+// tslint:disable-next-line:variable-name
+export const ActivityRow = ({ activity, deleteActivityAction }: Props) => (
+    <tr key={activity.id}>
+        <td>{activity.name}</td>
+        <td>{activity.trackedTime ? formatElapsedSeconds(activity.trackedTime) : 'N/A'}</td>
+        <td>{activity.trackedTimeToday ? formatElapsedSeconds(activity.trackedTimeToday) : 'N/A'}</td>
+        <td>
+            <span onClick={deleteActivityAction} className="icon icon-cancel-circled"></span>
+        </td>
+    </tr>
+);

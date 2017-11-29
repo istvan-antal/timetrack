@@ -7,7 +7,7 @@ interface ActivityAction {
     type: string;
     id?: number;
     name?: string;
-    trackedTime?: { [key: number]: number };
+    trackedTime?: { [key: number]: [number, number] };
 }
 
 export const activities = (state , action: ActivityAction) => {
@@ -23,7 +23,8 @@ export const activities = (state , action: ActivityAction) => {
             if (action.trackedTime[activity.id]) {
                 return {
                     ...activity,
-                    trackedTime: action.trackedTime[activity.id],
+                    trackedTime: action.trackedTime[activity.id][0],
+                    trackedTimeToday: action.trackedTime[activity.id][1],
                 };
             }
             return activity;
