@@ -36,6 +36,7 @@ export const timer = (state: State, action): State => {
                     return {
                         ...activity,
                         trackedTime: (activity.trackedTime as number || 0) + elapsedTime,
+                        trackedTimeToday: (activity.trackedTimeToday as number || 0) + elapsedTime,
                     };
                 }
                 return activity;
