@@ -1,6 +1,6 @@
-import { remote } from 'electron';
 import { Activity } from './entities';
 import { now } from './util/now';
+const { remote } = require('electron');
 const fs = remote.require('fs');
 
 export class PeriodStorage {
@@ -53,7 +53,8 @@ export class PeriodStorage {
             onPeriod(activity, +fields[3], +fields[4]);
         };
         // TODO: use fs.read instead for better scalability
-        fs.readFile(this.filePath, (error, data) => {
+        // tslint:disable-next-line:no-any
+        fs.readFile(this.filePath, (error: any, data: any) => {
             if (error) {
                 throw error;
             }

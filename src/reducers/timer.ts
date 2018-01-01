@@ -12,7 +12,8 @@ interface State {
     activities?: any[];
 }
 
-export const timer = (state: State, action): State => {
+// tslint:disable-next-line:no-any
+export const timer = (state: State | undefined, action: any): State => {
     if (state === undefined) {
         state = {};
     }
@@ -20,19 +21,19 @@ export const timer = (state: State, action): State => {
         return {
             ...state,
             panel: panel(state.panel, switchPanel('TimerDisplay')),
-            currentActivity: state.activities.filter(activity => activity.id === action.id )[0],
+            currentActivity: state.activities!.filter(activity => activity.id === action.id )[0],
             activityStartTime: now(),
         };
     }
 
     if (action.type === STOP_TIMER_TYPE) {
-        const elapsedTime = now() - state.activityStartTime;
+        const elapsedTime = now() - state.activityStartTime!;
 
         const newState = {
             ...state,
             panel: panel(state.panel, switchPanel('TimerForm')),
-            activities: state.activities.map(activity => {
-                if (activity.id === state.currentActivity.id) {
+            activities: state.activities!.map(activity => {
+                if (activity.id === state!.currentActivity.id) {
                     return {
                         ...activity,
                         trackedTime: (activity.trackedTime as number || 0) + elapsedTime,

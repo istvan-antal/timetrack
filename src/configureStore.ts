@@ -1,16 +1,16 @@
 import { createStore, applyMiddleware } from 'redux';
-import { remote } from 'electron';
 import { PeriodStorage } from './PeriodStorage';
 import { timer } from './reducers/timer';
 import { populateTrackedTime, STOP_TIMER_TYPE, stopTimer, startTimer } from './actions';
 import * as moment from 'moment';
 import { now } from './util/now';
+const { remote } = require('electron');
 const fs = remote.require('fs');
 const app = remote.app;
 
 const userDataPath = app.getPath('userData');
-const uiStateFile = userDataPath + '/ui.state.json';
-const periodListFile = userDataPath + '/periods.csv';
+const uiStateFile = `${userDataPath}/ui.state.json`;
+const periodListFile = `${userDataPath}/periods.csv`;
 const periodList = new PeriodStorage(periodListFile);
 
 // tslint:disable-next-line:no-any
@@ -75,7 +75,7 @@ export default () => {
         store.dispatch(populateTrackedTime(timeTracked));
     });
 
-    let suspendedId;
+    let suspendedId: number | undefined;
 
     remote.powerMonitor.on('suspend', () => {
         const state = store.getState();

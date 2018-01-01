@@ -1,6 +1,7 @@
 import { SWITCH_PANEL_TYPE } from '../actions';
 
-export const panel = (state, action: { type: string; panel?: string }) => {
+// tslint:disable-next-line:no-any
+export const panel = (state: any, action: { type: string; panel?: string }) => {
     if (state === undefined) {
         state = 'TimerForm';
     }

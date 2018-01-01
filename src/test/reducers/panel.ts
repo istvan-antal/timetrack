@@ -1,5 +1,5 @@
-import { panel } from '../../src/reducers/panel';
-import { switchPanel } from '../../src/actions';
+import { panel } from '../../reducers/panel';
+import { switchPanel } from '../../actions';
 const { expect } = require('chai');
 
 describe('reducers/panel', () => {

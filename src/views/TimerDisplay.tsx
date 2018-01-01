@@ -11,7 +11,8 @@ interface ComponentProps {
 
 export class TimerDisplay extends React.Component<ComponentProps, { timeDisplay: string }> {
     private ticker: NodeJS.Timer;
-    constructor(props, context) {
+    // tslint:disable-next-line:no-any
+    constructor(props: ComponentProps, context: any) {
         super(props, context);
         // TODO: calculate this to prevent "flicker"
         this.state = {

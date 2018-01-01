@@ -22,7 +22,7 @@ export class TimerForm extends React.Component<ComponentProps> {
             <div className="window-content">
                 <div className="padded-more">
                     <form>
-                        <select ref={node => this.activityIdSelect = node} className="form-control">
+                        <select ref={node => this.activityIdSelect = node!} className="form-control">
                             <option/>
                         {this.props.activities.map((activity, index) => (
                             <option value={activity.id} key={index}>{activity.name}</option>

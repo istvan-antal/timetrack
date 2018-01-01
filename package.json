@@ -7,7 +7,7 @@
     "start": "electron main.js",
     "package": "electron-packager . TimeTrack --platform=darwin --arch=x64 --icon=icon.icns --overwrite --ignore=typings",
     "build": "webpack",
-    "test": "eslint . && mocha --recursive dist/test/**/*.js"
+    "test": "tslint --project ."
   },
   "repository": {
     "type": "git",
@@ -24,11 +24,12 @@
   },
   "homepage": "https://github.com/atom/electron-quick-start#readme",
   "dependencies": {
-    "@types/electron": "^1.6.10",
     "@types/mocha": "^2.2.44",
     "@types/moment": "^2.13.0",
     "@types/react": "^16.0.25",
     "@types/react-dom": "^16.0.3",
+    "@types/react-redux": "^5.0.14",
+    "awesome-typescript-loader": "^3.4.1",
     "babel-core": "^6.11.4",
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.9.0",

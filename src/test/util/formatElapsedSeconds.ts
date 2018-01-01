@@ -1,4 +1,4 @@
-import { formatElapsedSeconds} from '../../src/util/formatElapsedSeconds';
+import { formatElapsedSeconds} from '../../util/formatElapsedSeconds';
 const { expect } = require('chai');
 
 describe('util/formatElapsedSeconds', () => {

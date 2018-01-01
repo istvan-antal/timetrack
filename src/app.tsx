@@ -1,5 +1,4 @@
 import React = require('react');
-import { remote } from 'electron';
 import { connect } from 'react-redux';
 import { Activity } from './entities';
 import {
@@ -9,6 +8,8 @@ import {
 import { TimerForm } from './views/TimerForm';
 import { TimerDisplay } from './views/TimerDisplay';
 import { ActivityList } from './views/ActivityList';
+
+const { remote } = require('electron');
 
 interface ComponentProps {
     panel: string;
@@ -25,7 +26,8 @@ interface ComponentProps {
 }
 
 class App extends React.Component<ComponentProps> {
-    constructor(props, context) {
+    // tslint:disable-next-line:no-any
+    constructor(props: ComponentProps, context: any) {
         super(props, context);
     }
     render() {
@@ -51,8 +53,8 @@ class App extends React.Component<ComponentProps> {
 
         if (this.props.panel === 'TimerDisplay') {
             return <TimerDisplay
-                startTime={this.props.activityStartTime}
-                activity={this.props.currentActivity}
+                startTime={this.props.activityStartTime!}
+                activity={this.props.currentActivity!}
                 stopTimer={this.props.stopTimer}
                 showActivityList={this.props.showActivityList}
             />;
@@ -66,11 +68,12 @@ class App extends React.Component<ComponentProps> {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    addActivity: name => {
+// tslint:disable-next-line:no-any
+const mapDispatchToProps = (dispatch: any) => ({
+    addActivity: (name: string) => {
         dispatch(addActivity(name));
     },
-    deleteActivity: id => {
+    deleteActivity: (id: number) => {
         dispatch(deleteActivity(id));
     },
     showActivityList: () => {
@@ -82,7 +85,7 @@ const mapDispatchToProps = dispatch => ({
     showDisplay: () => {
         dispatch(switchPanel('TimerDisplay'));
     },
-    startTimer: id => {
+    startTimer: (id: number) => {
         dispatch(startTimer(id));
     },
     stopTimer: () => {

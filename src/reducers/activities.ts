@@ -10,7 +10,8 @@ interface ActivityAction {
     trackedTime?: { [key: number]: [number, number] };
 }
 
-export const activities = (state , action: ActivityAction) => {
+// tslint:disable-next-line:no-any
+export const activities = (state: any , action: ActivityAction) => {
     if (state === undefined) {
         state = [];
     }
@@ -19,18 +20,20 @@ export const activities = (state , action: ActivityAction) => {
         case ADD_ACTIVITY_TYPE:
         return [...state, { id: now(), name: action.name }];
         case TRACKED_TIME_POPULATE:
-        return state.map(activity => {
-            if (action.trackedTime[activity.id]) {
+        // tslint:disable-next-line:no-any
+        return state.map((activity: any) => {
+            if (action.trackedTime![activity.id]) {
                 return {
                     ...activity,
-                    trackedTime: action.trackedTime[activity.id][0],
-                    trackedTimeToday: action.trackedTime[activity.id][1],
+                    trackedTime: action.trackedTime![activity.id][0],
+                    trackedTimeToday: action.trackedTime![activity.id][1],
                 };
             }
             return activity;
         });
         case DELETE_ACTIVITY_TYPE:
-            return state.filter(activity => activity.id !== action.id );
+            // tslint:disable-next-line:no-any
+            return state.filter((activity: any) => activity.id !== action.id );
     }
     return state;
 };

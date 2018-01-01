@@ -1,27 +1,32 @@
+const { CheckerPlugin } = require('awesome-typescript-loader');
+
 module.exports = {
     entry: './src/init.tsx',
     output: {
-        path: `${__dirname}/dist`,
+        path: `${__dirname}/build`,
         filename: 'app.js'
     },
     resolve: {
         extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.tsx']
     },
     module: {
-        loaders: [{
-            test: /.js$/,
-            loader: 'babel-loader',
-            query: {
-                presets: ['es2015', 'react', 'stage-2']
+        loaders: [
+            {
+                test: /.js$/,
+                loader: 'babel-loader',
+                query: {
+                    presets: ['es2015', 'react', 'stage-2']
+                }
+            },
+            {
+                test: /\.tsx?$/,
+                loader: 'awesome-typescript-loader'
             }
-        }, {
-            test: /\.ts$/,
-            loader: 'ts-loader'
-        }, {
-            test: /\.tsx$/,
-            loader: 'ts-loader'
-        }]
+        ]
     },
+    plugins: [
+        new CheckerPlugin()
+    ],
     externals: [
         (function externals() {
             const IGNORES = [

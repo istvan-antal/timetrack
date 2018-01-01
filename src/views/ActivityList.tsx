@@ -7,13 +7,14 @@ interface Props {
         name: string;
         trackedTime?: number;
     }>;
-    addActivityAction(name: string);
-    deleteActivityAction(id: number);
-    goBack();
+    addActivityAction(name: string): void;
+    deleteActivityAction(id: number): void;
+    goBack(): void;
 }
 
 export class ActivityList extends React.Component<Props> {
-    addActivity(event) {
+    // tslint:disable-next-line:no-any
+    addActivity(event: any) {
         const e = event;
         if (e.key === 'Enter') {
             this.props.addActivityAction(e.target.value);
@@ -24,7 +25,7 @@ export class ActivityList extends React.Component<Props> {
         const activities = this.props.activities.map((activity, index) => (
             <ActivityRow
                 activity={activity}
-                deleteActivityAction={() => this.props.deleteActivityAction(activity.id)}
+                deleteActivityAction={() => { this.props.deleteActivityAction(activity.id); }}
                 key={index}
             />
         ));

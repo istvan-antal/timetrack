@@ -10,7 +10,7 @@ interface Activity {
 
 interface Props {
     activity: Activity;
-    deleteActivityAction();
+    deleteActivityAction(): void;
 }
 
 // tslint:disable-next-line:variable-name

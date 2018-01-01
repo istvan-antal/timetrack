@@ -1,9 +1,9 @@
-import { activities } from '../../src/reducers/activities';
+import { activities } from '../../reducers/activities';
 import {
     addActivity, populateTrackedTime,
     deleteActivity,
-} from '../../src/actions';
-import { deepFreeze } from '../../src/util/deepFreeze';
+} from '../../actions';
+import { deepFreeze } from '../../util/deepFreeze';
 const { expect } = require('chai');
 
 describe('reducers/activities', () => {
