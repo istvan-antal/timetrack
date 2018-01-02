@@ -5,7 +5,7 @@ node('nodejs') {
         }
 
         stage('npm install') {
-            sh "npm install"
+            sh "npm install --ignore-scripts"
         }
 
         stage('build') {
