@@ -1,4 +1,5 @@
 import * as React from 'react';
+const { ipcRenderer } = require('electron');
 import { Activity } from '../entities';
 import { formatElapsedSeconds } from '../util/formatElapsedSeconds';
 
@@ -11,6 +12,7 @@ interface ComponentProps {
 
 export class TimerDisplay extends React.Component<ComponentProps, { timeDisplay: string }> {
     private ticker: NodeJS.Timer;
+    private notificationTicker: NodeJS.Timer;
     // tslint:disable-next-line:no-any
     constructor(props: ComponentProps, context: any) {
         super(props, context);
@@ -29,9 +31,31 @@ export class TimerDisplay extends React.Component<ComponentProps, { timeDisplay:
             });
         // tslint:disable-next-line:no-magic-numbers
         }, 1000);
+
+        const updateNotificationText = () => {
+            // tslint:disable-next-line:no-magic-numbers
+            const currentTime = Math.floor((new Date()).getTime() / 1000);
+            const timeDiff = currentTime - this.props.startTime;
+            // tslint:disable-next-line:no-magic-numbers
+            let displayText = `${Math.floor(timeDiff % 3600 / 60)}`;
+            // tslint:disable-next-line:no-magic-numbers
+            const hours = Math.floor(timeDiff / 3600);
+            if (hours) {
+                displayText = `${hours}.${displayText}`;
+            }
+            // tslint:disable-next-line:no-magic-numbers
+            ipcRenderer.send('setNotificationText', displayText);
+            // tslint:disable-next-line:no-magic-numbers
+        };
+
+        // tslint:disable-next-line:no-magic-numbers
+        this.notificationTicker = setInterval(updateNotificationText, 60000);
+        updateNotificationText();
     }
     componentWillUnmount() {
         clearInterval(this.ticker);
+        clearTimeout(this.notificationTicker);
+        ipcRenderer.send('setNotificationText', '');
     }
     render() {
         return (

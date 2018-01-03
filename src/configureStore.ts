@@ -4,9 +4,11 @@ import { timer } from './reducers/timer';
 import { populateTrackedTime, STOP_TIMER_TYPE, stopTimer, startTimer } from './actions';
 import * as moment from 'moment';
 import { now } from './util/now';
-const { remote } = require('electron');
+const { remote, ipcRenderer } = require('electron');
 const fs = remote.require('fs');
 const app = remote.app;
+
+ipcRenderer.send('setNotificationText', '');
 
 const userDataPath = app.getPath('userData');
 const uiStateFile = `${userDataPath}/ui.state.json`;

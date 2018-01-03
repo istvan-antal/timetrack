@@ -1,5 +1,4 @@
-build: node_modules
-	./node_modules/.bin/eslint .
+build:
 	./node_modules/.bin/tslint --project .
 	./node_modules/.bin/webpack
 
@@ -16,10 +15,6 @@ clean:
 
 dist/test:
 	./node_modules/.bin/tsc
-
-node_modules: package.json
-	npm install
-	touch node_modules
 
 git-hooks:
 	printf '#!/bin/bash\nmake\n' > .git/hooks/pre-commit; chmod +x .git/hooks/pre-commit

@@ -1,15 +1,27 @@
 /* eslint import/no-unresolved: 0 */
-const electron = require('electron');
-// Module to control application life.
-const app = electron.app;
-// Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow;
+const { app/* , Menu*/, Tray, BrowserWindow, ipcMain } = require('electron');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
+let tray = null;
+
+ipcMain.on('setNotificationText', (event, arg) => {
+    tray.setTitle(arg);
+});
 
 function createWindow() {
+    tray = new Tray('./icon-menu-play.png');
+    tray.setTitle('...');
+    /* const contextMenu = Menu.buildFromTemplate([
+        { label: 'Item1', type: 'radio' },
+        { label: 'Item2', type: 'radio' },
+        { label: 'Item3', type: 'radio', checked: true },
+        { label: 'Item4', type: 'radio' }
+    ]);
+    tray.setToolTip('This is my application.');
+    tray.setContextMenu(contextMenu); */
+
     // Create the browser window.
     mainWindow = new BrowserWindow({
         width: 300,
