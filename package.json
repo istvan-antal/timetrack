@@ -4,7 +4,8 @@
   "description": "Time tracker application.",
   "main": "./src",
   "scripts": {
-    "start": "electron dist/main.js",
+    "start": "./scripts/start.sh",
+    "run": "electron dist/main.js",
     "package": "electron-packager . TimeTrack --platform=darwin --arch=x64 --icon=icon.icns --overwrite --ignore=typings",
     "build": "react-ts-runtime build; tsc src/main.ts --out dist/main.js",
     "test": "tslint --project ."

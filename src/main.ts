@@ -1,3 +1,7 @@
+import { join } from 'path';
+
+const DEV_MODE = true;
+
 /* eslint import/no-unresolved: 0 */
 const { app/* , Menu*/, Tray, BrowserWindow, ipcMain } = require('electron');
 
@@ -28,12 +32,22 @@ function createWindow() {
 
     // Create the browser window.
     mainWindow = new BrowserWindow({
-        width: 300,
-        height: 118,
+        // tslint:disable-next-line:no-magic-numbers
+        width: DEV_MODE ? 700 : 300,
+        // tslint:disable-next-line:no-magic-numbers
+        height: DEV_MODE ? 518 : 118,
     });
 
-    // and load the index.html of the app.
-    mainWindow.loadURL(`file://${__dirname}/index.html`);
+    const mainUrl = process.env.MAIN_APP_URL || join('file://', __dirname, '/index.html');
+
+    console.log(`Loading: ${mainUrl}`);
+
+    mainWindow.loadURL(mainUrl);
+
+    if (DEV_MODE) {
+        console.log('Enable DevTools');
+        mainWindow.webContents.openDevTools({ detach: true });
+    }
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools({ detach: true });
