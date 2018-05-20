@@ -11,8 +11,8 @@ interface ComponentProps {
 }
 
 export class TimerDisplay extends React.Component<ComponentProps, { timeDisplay: string }> {
-    private ticker!: NodeJS.Timer;
-    private notificationTicker!: NodeJS.Timer;
+    private ticker!: number;
+    private notificationTicker!: number;
     // tslint:disable-next-line:no-any
     constructor(props: ComponentProps, context: any) {
         super(props, context);
@@ -29,8 +29,8 @@ export class TimerDisplay extends React.Component<ComponentProps, { timeDisplay:
             this.setState({
                 timeDisplay: formatElapsedSeconds(timeDiff),
             });
-        // tslint:disable-next-line:no-magic-numbers
-        }, 1000);
+        // tslint:disable-next-line:no-magic-numbers no-any
+        }, 1000) as any;
 
         const updateNotificationText = () => {
             // tslint:disable-next-line:no-magic-numbers
@@ -48,8 +48,8 @@ export class TimerDisplay extends React.Component<ComponentProps, { timeDisplay:
             // tslint:disable-next-line:no-magic-numbers
         };
 
-        // tslint:disable-next-line:no-magic-numbers
-        this.notificationTicker = setInterval(updateNotificationText, 60000);
+        // tslint:disable-next-line:no-magic-numbers no-any
+        this.notificationTicker = setInterval(updateNotificationText, 60000) as any;
         updateNotificationText();
     }
     componentWillUnmount() {
