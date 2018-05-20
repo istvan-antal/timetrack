@@ -8,7 +8,7 @@ interface ComponentProps {
 }
 
 export class TimerForm extends React.Component<ComponentProps> {
-    private activityIdSelect: HTMLSelectElement;
+    private activityIdSelect!: HTMLSelectElement;
     startTimer() {
         const id = +this.activityIdSelect.value;
         if (!id) {

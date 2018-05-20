@@ -11,8 +11,8 @@ interface ComponentProps {
 }
 
 export class TimerDisplay extends React.Component<ComponentProps, { timeDisplay: string }> {
-    private ticker: NodeJS.Timer;
-    private notificationTicker: NodeJS.Timer;
+    private ticker!: NodeJS.Timer;
+    private notificationTicker!: NodeJS.Timer;
     // tslint:disable-next-line:no-any
     constructor(props: ComponentProps, context: any) {
         super(props, context);

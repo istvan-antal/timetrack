@@ -3,13 +3,17 @@ const { app/* , Menu*/, Tray, BrowserWindow, ipcMain } = require('electron');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow;
-let tray = null;
+// tslint:disable-next-line:no-any
+let mainWindow: any;
+// tslint:disable-next-line:no-null-keyword no-any
+let tray: any = null;
 
-ipcMain.on('setNotificationText', (event, arg) => {
+// tslint:disable-next-line:no-any variable-name
+ipcMain.on('setNotificationText', (_event: any, arg: any) => {
     tray.setTitle(arg);
 });
 
+// tslint:disable-next-line:only-arrow-functions
 function createWindow() {
     tray = new Tray('./icon-menu-play.png');
     tray.setTitle('...');
@@ -25,11 +29,11 @@ function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({
         width: 300,
-        height: 118
+        height: 118,
     });
 
     // and load the index.html of the app.
-    mainWindow.loadURL(`file://${__dirname}/app.html`);
+    mainWindow.loadURL(`file://${__dirname}/index.html`);
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools({ detach: true });
@@ -39,6 +43,7 @@ function createWindow() {
         // Dereference the window object, usually you would store windows
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
+        // tslint:disable-next-line:no-null-keyword
         mainWindow = null;
     });
 }

@@ -1,6 +1,6 @@
 build:
 	./node_modules/.bin/tslint --project .
-	./node_modules/.bin/webpack
+	npm run build
 
 mac: build
 	./node_modules/.bin/electron-packager . TimeTrack --platform=darwin --arch=x64 --icon=icon.icns --overwrite --ignore=typings
