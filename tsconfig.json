@@ -1,5 +1,16 @@
 {
     "compilerOptions": {
+        "lib": [
+            "es2015",
+            "es2015.promise",
+            "es2017",
+            "es2017.object",
+            "dom"
+        ],
+        "types": [
+            "node",
+            "jest"
+        ],
         "module": "commonjs",
         "target": "es6",
         "sourceMap": true,
