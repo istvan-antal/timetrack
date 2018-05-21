@@ -7,6 +7,7 @@ export class PeriodStorage {
     private filePath: string;
     constructor(filePath: string) {
         this.filePath = filePath;
+        console.debug(`PeriodStorage: ${filePath}`);
         // tslint:disable-next-line:no-any
         fs.stat(filePath, (error: any) => {
             if (error && error.code === 'ENOENT') {

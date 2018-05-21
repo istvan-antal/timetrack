@@ -10,6 +10,7 @@ import { TimerDisplay } from './views/TimerDisplay';
 import { ActivityList } from './views/ActivityList';
 
 const { remote } = require('electron');
+const platform = remote.getGlobal('process').platform;
 
 interface ComponentProps {
     panel: string;
@@ -48,8 +49,17 @@ class App extends React.Component<ComponentProps> {
             />;
         }
 
+        let width = 300;
+        let height = 118;
+
+        if (platform === 'win32') {
+            // tslint:disable-next-line:no-magic-numbers
+            width *= 1.5;
+            // tslint:disable-next-line:no-magic-numbers
+            height *= 1.5;
+        }
         // tslint:disable-next-line:no-magic-numbers
-        remote.getCurrentWindow().setSize(300, 118, true);
+        remote.getCurrentWindow().setSize(width, height, true);
 
         if (this.props.panel === 'TimerDisplay') {
             return <TimerDisplay

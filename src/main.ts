@@ -29,14 +29,23 @@ function createWindow() {
     ]);
     tray.setToolTip('This is my application.');
     tray.setContextMenu(contextMenu); */
-
-    // Create the browser window.
-    mainWindow = new BrowserWindow({
+    const windowConfiguration = {
+        autoHideMenuBar: true,
         // tslint:disable-next-line:no-magic-numbers
         width: DEV_MODE ? 700 : 300,
         // tslint:disable-next-line:no-magic-numbers
         height: DEV_MODE ? 518 : 118,
-    });
+    };
+
+    if (process.platform === 'win32') {
+        // tslint:disable-next-line:no-magic-numbers
+        windowConfiguration.width *= 1.5;
+        // tslint:disable-next-line:no-magic-numbers
+        windowConfiguration.height *= 1.5;
+    }
+
+    // Create the browser window.
+    mainWindow = new BrowserWindow(windowConfiguration);
 
     const mainUrl = process.env.MAIN_APP_URL || join('file://', __dirname, '/index.html');
 
