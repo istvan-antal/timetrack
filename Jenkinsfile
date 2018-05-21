@@ -9,7 +9,7 @@ node('nodejs') {
         }
 
         stage('build') {
-            sh "make"
+            sh "npm run build"
         }
     }
     cleanWs()
