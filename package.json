@@ -7,6 +7,7 @@
     "start": "bash ./scripts/start.sh",
     "run": "electron dist/main.js",
     "package": "electron-packager . TimeTrack --platform darwin --out build --arch=x64 --icon=icon.icns --overwrite --ignore=typings",
+    "package:win": "electron-packager ./dist TimeTrack --platform win32 --out build --arch=x64 --overwrite --ignore=typings",
     "build": "react-ts-runtime build; tsc src/main.ts --lib es5,es6,es7,dom --outDir dist",
     "test": "tslint --project .",
     "hooks": "bash ./scripts/hooks.sh"
