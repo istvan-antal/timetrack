@@ -12,6 +12,10 @@ node('nodejs') {
             sh "npm install --ignore-scripts"
         }
 
+        stage('test') {
+            sh "npm test"
+        }
+
         stage('build') {
             sh "npm run build"
         }
