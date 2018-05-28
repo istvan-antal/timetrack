@@ -15,6 +15,14 @@ node('nodejs') {
         stage('build') {
             sh "npm run build"
         }
+
+        stage('package mac') {
+            sh 'npm run package:mac'
+            dir('build/TimeTrack-darwin-x64') {
+                sh 'zip -r TimeTrack.zip TimeTrack.app'
+                archiveArtifacts 'TimeTrack.zip'
+            }
+        }
     }
     cleanWs()
 }
