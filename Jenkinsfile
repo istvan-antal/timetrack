@@ -1,5 +1,17 @@
 @Library('pipeline') _
 
+properties([
+    buildDiscarder(
+        logRotator(
+            artifactDaysToKeepStr: '10',
+            artifactNumToKeepStr: '10',
+            daysToKeepStr: '10',
+            numToKeepStr: '10'
+        )
+    ),
+    disableConcurrentBuilds()
+])
+
 node('nodejs') {
     useNodeJs('10.2.1', '6.1.0')
     
