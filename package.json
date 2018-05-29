@@ -6,7 +6,7 @@
   "scripts": {
     "start": "bash ./scripts/start.sh",
     "run": "electron dist/main.js",
-    "package:mac": "electron-packager . TimeTrack --platform darwin --out build --arch=x64 --icon=icon.icns --overwrite --ignore=typings",
+    "package:mac": "bash ./scripts/package.sh",
     "package:win": "electron-packager ./dist TimeTrack --platform win32 --out build --arch=x64 --overwrite --ignore=typings",
     "build": "react-ts-runtime build; tsc src/main.ts --lib es5,es6,es7,dom --outDir dist",
     "test": "tslint --project .",
@@ -36,7 +36,7 @@
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.7",
-    "react-ts-runtime": "0.0.12-alpha1",
+    "react-ts-runtime": "0.0.12-alpha3",
     "redux": "^3.7.2"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 import { join } from 'path';
 
-const DEV_MODE = true;
+const DEV_MODE = process.env.NODE_ENV === 'development';
 
 /* eslint import/no-unresolved: 0 */
 const { app/* , Menu*/, Tray, BrowserWindow, ipcMain } = require('electron');
@@ -19,7 +19,7 @@ ipcMain.on('setNotificationText', (_event: any, arg: any) => {
 
 // tslint:disable-next-line:only-arrow-functions
 function createWindow() {
-    tray = new Tray('./icon-menu-play.png');
+    tray = new Tray(`${__dirname}/icon-menu-play.png`);
     tray.setTitle('...');
     /* const contextMenu = Menu.buildFromTemplate([
         { label: 'Item1', type: 'radio' },

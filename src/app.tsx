@@ -8,6 +8,7 @@ import {
 import { TimerForm } from './views/TimerForm';
 import { TimerDisplay } from './views/TimerDisplay';
 import { ActivityList } from './views/ActivityList';
+import 'photon/dist/css/photon.css';
 
 const { remote } = require('electron');
 const platform = remote.getGlobal('process').platform;
