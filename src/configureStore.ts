@@ -6,14 +6,17 @@ import * as moment from 'moment';
 import { now } from './util/now';
 const { remote, ipcRenderer } = require('electron');
 const fs = remote.require('fs');
+const { join } = remote.require('path');
 const app = remote.app;
 
 ipcRenderer.send('setNotificationText', '');
 
-const userDataPath = app.getPath('userData');
+const userDataPath = join(app.getPath('appData'), 'TimeTrack');
 const uiStateFile = `${userDataPath}/ui.state.json`;
 const periodListFile = `${userDataPath}/periods.csv`;
 const periodList = new PeriodStorage(periodListFile);
+
+console.log(`User data path: ${userDataPath}`);
 
 // tslint:disable-next-line:no-any
 const saveState = (state: any) => {
