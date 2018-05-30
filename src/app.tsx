@@ -3,18 +3,20 @@ import { connect } from 'react-redux';
 import { Activity } from './entities';
 import {
     addActivity, deleteActivity, switchPanel,
-    startTimer, stopTimer,
+    startTimer, stopTimer, showActivity,
 } from './actions';
 import { TimerForm } from './views/TimerForm';
 import { TimerDisplay } from './views/TimerDisplay';
 import { ActivityList } from './views/ActivityList';
 import 'photon/dist/css/photon.css';
+import { ActivityView } from './views/ActivityView';
 
 const { remote } = require('electron');
 const platform = remote.getGlobal('process').platform;
 
 interface ComponentProps {
     panel: string;
+    selectedActivity?: Activity;
     currentActivity?: Activity;
     activityStartTime?: number;
     activities: Activity[];
@@ -22,6 +24,7 @@ interface ComponentProps {
     deleteActivity: (id: number) => void;
     showActivityList: () => void;
     showTimerForm: () => void;
+    showActivity: (activity: Activity) => void;
     showDisplay: () => void;
     startTimer: (id: number) => void;
     stopTimer: () => void;
@@ -33,19 +36,27 @@ class App extends React.Component<ComponentProps> {
         super(props, context);
     }
     render() {
+        let goBack = this.props.showTimerForm;
+
+        if (this.props.currentActivity) {
+            goBack = this.props.showDisplay;
+        }
+
         if (this.props.panel === 'ActivityList') {
             // tslint:disable-next-line:no-magic-numbers
             remote.getCurrentWindow().setSize(500, 300, true);
-            let goBack = this.props.showTimerForm;
-
-            if (this.props.currentActivity) {
-                goBack = this.props.showDisplay;
-            }
-
             return <ActivityList
                 activities={this.props.activities}
                 addActivityAction={this.props.addActivity}
                 deleteActivityAction={this.props.deleteActivity}
+                showActivity={this.props.showActivity}
+                goBack={goBack}
+            />;
+        }
+
+        if (this.props.panel === 'ActivityView') {
+            return <ActivityView
+                activity={this.props.selectedActivity!}
                 goBack={goBack}
             />;
         }
@@ -92,6 +103,9 @@ const mapDispatchToProps = (dispatch: any) => ({
     },
     showTimerForm: () => {
         dispatch(switchPanel('TimerForm'));
+    },
+    showActivity: (activity: Activity) => {
+        dispatch(showActivity(activity));
     },
     showDisplay: () => {
         dispatch(switchPanel('TimerDisplay'));

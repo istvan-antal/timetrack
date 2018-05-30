@@ -1,11 +1,7 @@
-import { SWITCH_PANEL_TYPE } from '../actions';
+import { WindowActions } from '../actions';
 
-// tslint:disable-next-line:no-any
-export const panel = (state: any, action: { type: string; panel?: string }) => {
-    if (state === undefined) {
-        state = 'TimerForm';
-    }
-    if (action.type !== SWITCH_PANEL_TYPE) {
+export const panel = (state = 'TimerForm', action: { type: string; panel?: string }) => {
+    if (action.type !== WindowActions.SwitchPanel) {
         return state;
     }
 

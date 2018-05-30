@@ -11,13 +11,18 @@ interface Activity {
 interface Props {
     activity: Activity;
     deleteActivityAction(): void;
+    showActivity(activity: Activity): void;
 }
 
 // tslint:disable-next-line:variable-name
-export const ActivityRow = ({ activity, deleteActivityAction }: Props) => (
+export const ActivityRow = ({ activity, deleteActivityAction, showActivity }: Props) => (
     <tr key={activity.id}>
-        <td>{activity.name}</td>
-        <td>{activity.trackedTime ? formatElapsedSeconds(activity.trackedTime) : 'N/A'}</td>
+        <td onClick={() => { showActivity(activity); }}>
+            {activity.name}
+        </td>
+        <td>
+            {activity.trackedTime ? formatElapsedSeconds(activity.trackedTime) : 'N/A'}
+        </td>
         <td>{activity.trackedTimeToday ? formatElapsedSeconds(activity.trackedTimeToday) : 'N/A'}</td>
         <td>
             <span onClick={deleteActivityAction} className="icon icon-cancel-circled"></span>

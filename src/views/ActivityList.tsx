@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { ActivityRow } from './ActivityRow';
+import { Activity } from '../entities';
 
 interface Props {
     activities: Array<{
@@ -9,6 +10,7 @@ interface Props {
     }>;
     addActivityAction(name: string): void;
     deleteActivityAction(id: number): void;
+    showActivity(activity: Activity): void;
     goBack(): void;
 }
 
@@ -26,6 +28,7 @@ export class ActivityList extends React.Component<Props> {
             <ActivityRow
                 activity={activity}
                 deleteActivityAction={() => { this.props.deleteActivityAction(activity.id); }}
+                showActivity={this.props.showActivity}
                 key={index}
             />
         ));

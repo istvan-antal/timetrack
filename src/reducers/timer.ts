@@ -1,21 +1,25 @@
 import { activities } from './activities';
 import { panel } from './panel';
-import { START_TIMER_TYPE, STOP_TIMER_TYPE, switchPanel } from '../actions';
+import { START_TIMER_TYPE, STOP_TIMER_TYPE, switchPanel, WindowActions } from '../actions';
 import { now } from '../util/now';
+import { periods, PeriodListView } from './periods';
+import { Activity } from '../entities';
 
 interface State {
     panel?: string;
+    selectedActivity?: Activity;
     // tslint:disable-next-line:no-any
     currentActivity?: any;
     activityStartTime?: number;
     // tslint:disable-next-line:no-any
     activities?: any[];
+    periods: PeriodListView;
 }
 
 // tslint:disable-next-line:no-any
 export const timer = (state: State | undefined, action: any): State => {
     if (state === undefined) {
-        state = {};
+        state = { periods: {} };
     }
     if (action.type === START_TIMER_TYPE) {
         return {
@@ -23,6 +27,14 @@ export const timer = (state: State | undefined, action: any): State => {
             panel: panel(state.panel, switchPanel('TimerDisplay')),
             currentActivity: state.activities!.filter(activity => activity.id === action.id )[0],
             activityStartTime: now(),
+        };
+    }
+
+    if (action.type === WindowActions.ShowActivity) {
+        return {
+            ...state,
+            panel: panel(state.panel, switchPanel('ActivityView')),
+            selectedActivity: state.activities!.filter(activity => activity.id === action.activityId)[0],
         };
     }
 
@@ -54,5 +66,6 @@ export const timer = (state: State | undefined, action: any): State => {
         ...state,
         panel: panel(state.panel, action),
         activities: activities(state.activities, action),
+        periods: periods(state.periods, action),
     };
 };

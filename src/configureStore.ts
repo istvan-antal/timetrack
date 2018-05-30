@@ -48,6 +48,7 @@ export default () => {
     const periodAddMiddleware = (store: any) => (
         // tslint:disable-next-line:no-any
         (next: any) => (action: any) => {
+            console.log(action);
             if (action.type === STOP_TIMER_TYPE) {
                 const state = store.getState();
                 const elapsedTime = now() - state.activityStartTime;
@@ -63,13 +64,18 @@ export default () => {
     const timeTracked: {
         [key: number]: [number, number];
     } = {};
+    const periodsLogged: {
+        [key: number]: Array<[number, number]>;
+    } = {};
 
     const today = moment();
 
     periodList.fetchPeriods((activity, startTime, elapsedTime) => {
         if (!timeTracked[activity.id]) {
             timeTracked[activity.id] = [0, 0];
+            periodsLogged[activity.id] = [];
         }
+        periodsLogged[activity.id].push([startTime, elapsedTime]);
         // tslint:disable-next-line:no-magic-numbers
         const start = moment(startTime * 1000);
         timeTracked[activity.id][0] += elapsedTime;
@@ -77,7 +83,7 @@ export default () => {
             timeTracked[activity.id][1] += elapsedTime;
         }
     }, () => {
-        store.dispatch(populateTrackedTime(timeTracked));
+        store.dispatch(populateTrackedTime(timeTracked, periodsLogged));
     });
 
     let suspendedId: number | undefined;

@@ -50,6 +50,7 @@ export class PeriodStorage {
             const activity: Activity = {
                 id: +fields[2],
                 name: fields[1],
+                periods: [],
             };
             onPeriod(activity, +fields[3], +fields[4]);
         };

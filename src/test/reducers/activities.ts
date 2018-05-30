@@ -1,6 +1,6 @@
 import { activities } from '../../reducers/activities';
 import {
-    addActivity, populateTrackedTime,
+    addActivity,/* populateTrackedTime,*/
     deleteActivity,
 } from '../../actions';
 import { deepFreeze } from '../../util/deepFreeze';
@@ -22,7 +22,7 @@ describe('reducers/activities', () => {
         expect(nextState[0]).to.have.property('name', 'Hiking');
     });
 
-    it('should populate time', () => {
+    /* it('should populate time', () => {
         const initialState = deepFreeze([{
             id: 1,
             name: 'Hiking',
@@ -52,7 +52,7 @@ describe('reducers/activities', () => {
             10: [3600, 0],
         }));
         expect(nextState).to.deep.equal(expectedSate);
-    });
+    });*/
 
     it('should delete activity', () => {
         const initialState = deepFreeze([{

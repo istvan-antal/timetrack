@@ -1,5 +1,5 @@
 import {
-    ADD_ACTIVITY_TYPE, TRACKED_TIME_POPULATE, DELETE_ACTIVITY_TYPE,
+    ADD_ACTIVITY_TYPE, TRACKED_TIME_POPULATE, DELETE_ACTIVITY_TYPE, ActivityActions,
 } from '../actions';
 import { now } from '../util/now';
 
@@ -8,6 +8,9 @@ interface ActivityAction {
     id?: number;
     name?: string;
     trackedTime?: { [key: number]: [number, number] };
+    trackedPeriods?: {
+        [key: number]: Array<[number, number]>;
+    };
 }
 
 // tslint:disable-next-line:no-any
@@ -23,14 +26,21 @@ export const activities = (state: any , action: ActivityAction) => {
         // tslint:disable-next-line:no-any
         return state.map((activity: any) => {
             if (action.trackedTime![activity.id]) {
+                console.log(action);
                 return {
                     ...activity,
                     trackedTime: action.trackedTime![activity.id][0],
                     trackedTimeToday: action.trackedTime![activity.id][1],
+                    periods: action.trackedPeriods![activity.id].map(item => ({
+                        startTime: item[0],
+                        duration: item[1],
+                    })),
                 };
             }
             return activity;
         });
+        case ActivityActions.PopulatePeriods:
+            break;
         case DELETE_ACTIVITY_TYPE:
             // tslint:disable-next-line:no-any
             return state.filter((activity: any) => activity.id !== action.id );
