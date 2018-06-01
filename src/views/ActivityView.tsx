@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DateTime } from 'luxon';
 import { Activity } from '../entities';
-import { formatElapsedSeconds } from '../util/formatElapsedSeconds';
+import formatDuration from '../util/formatDuration';
 // import { ActivityRow } from './ActivityRow';
 
 interface Props {
@@ -49,7 +49,7 @@ export class ActivityView extends React.Component<Props> {
                                                     .fromMillis(period.startTime * 1000)
                                                     .toFormat('ccc d LLL HH:mm')}</td>
                                             <td style={{ textAlign: 'right' }}>
-                                                {formatElapsedSeconds(period.duration)}
+                                                {formatDuration(period.duration)}
                                             </td>
                                             <td></td>
                                         </tr>

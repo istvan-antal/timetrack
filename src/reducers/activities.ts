@@ -26,7 +26,7 @@ export const activities = (state: any , action: ActivityAction) => {
         // tslint:disable-next-line:no-any
         return state.map((activity: any) => {
             if (action.trackedTime![activity.id]) {
-                console.log(action);
+                // console.log(action);
                 return {
                     ...activity,
                     trackedTime: action.trackedTime![activity.id][0],

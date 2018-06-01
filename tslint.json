@@ -133,7 +133,6 @@
         "use-isnan": true,
         "strict-boolean-expressions": false,
         "strict-type-predicates": true,
-        "typeof-compare": true,
         "triple-equals": true,
         "switch-default": true,
         "radix": true,

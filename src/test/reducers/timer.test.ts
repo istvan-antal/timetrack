@@ -2,15 +2,15 @@ import { timer } from '../../reducers/timer';
 import { startTimer, stopTimer } from '../../actions';
 import { deepFreeze } from '../../util/deepFreeze';
 import { now } from '../../util/now';
-const { expect } = require('chai');
 
 describe('reducers/activities', () => {
     it('should return initial state for unknown action', () => {
         expect(timer(undefined, {
             type: 'foo',
-        })).to.deep.equal({
+        })).toEqual({
             panel: 'TimerForm',
             activities: [],
+            periods: {},
         });
     });
 
@@ -29,7 +29,7 @@ describe('reducers/activities', () => {
         const currentTime = now();
         // tslint:disable-next-line:no-magic-numbers
         const nextState = timer(initialState, startTimer(2));
-        expect(nextState).to.deep.equal({
+        expect(nextState).toEqual({
             panel: 'TimerDisplay',
             activityStartTime: currentTime,
             currentActivity: {
@@ -66,7 +66,7 @@ describe('reducers/activities', () => {
         });
 
         const nextState = timer(initialState, stopTimer());
-        expect(nextState).to.deep.equal({
+        expect(nextState).toEqual({
             panel: 'TimerForm',
             activities: [{
                 id: 1,
@@ -75,6 +75,7 @@ describe('reducers/activities', () => {
                 id: 2,
                 name: 'Biking',
                 trackedTime: 10,
+                trackedTimeToday: 10,
             }],
         });
     });

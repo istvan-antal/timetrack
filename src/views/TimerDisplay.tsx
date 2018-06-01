@@ -62,7 +62,7 @@ export class TimerDisplay extends React.Component<ComponentProps, { timeDisplay:
         <div className="window">
             <div className="window-content">
                 <div className="padded-more">
-                    {this.state.timeDisplay} - {this.props.activity.name}
+                    {this.state.timeDisplay} - {this.props.activity && this.props.activity.name}
                 </div>
             </div>
             <footer className="toolbar toolbar-footer">

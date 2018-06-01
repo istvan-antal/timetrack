@@ -3,4 +3,5 @@
 /dist
 /build
 /TimeTrack-darwin-x64
+/report
 .DS_Store

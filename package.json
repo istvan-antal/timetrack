@@ -9,7 +9,8 @@
     "package:mac": "bash ./scripts/package.sh",
     "package:win": "electron-packager ./dist TimeTrack --platform win32 --out build --arch=x64 --overwrite --ignore=typings",
     "build": "react-ts-runtime build; tsc src/main.ts --lib es5,es6,es7,dom --outDir dist",
-    "test": "tslint --project .",
+    "test": "npm audit && tslint --project . && jest",
+    "test-dev": "jest --watch",
     "hooks": "bash ./scripts/hooks.sh"
   },
   "engines": {
@@ -31,7 +32,6 @@
   },
   "homepage": "https://github.com/atom/electron-quick-start#readme",
   "dependencies": {
-    "@types/luxon": "^0.5.2",
     "luxon": "^1.2.1",
     "moment": "^2.22.1",
     "photon": "git+https://github.com/connors/photon.git#master",
@@ -42,14 +42,78 @@
     "redux": "^3.7.2"
   },
   "devDependencies": {
+    "@types/luxon": "^0.5.2",
     "@types/jest": "^22.2.3",
-    "@types/moment": "^2.13.0",
     "@types/react": "^16.3.14",
     "@types/react-dom": "^16.0.5",
     "@types/react-redux": "^5.0.20",
-    "electron": "^2.0.1",
+    "electron": "^2.0.2",
     "electron-packager": "^12.1.0",
     "tslint": "^5.10.0",
-    "typescript": "^2.8.3"
+    "typescript": "^2.8.3",
+    "ts-jest": "^22.4.6",
+    "jest": "^23.1.0",
+    "jest-junit": "^4.0.0"
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    },
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}"
+    ],
+    "coverageDirectory": "report",
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text",
+      "cobertura"
+    ],
+    "coveragePathIgnorePatterns": [
+      "src/views",
+      "src/index.ts",
+      "src/app.tsx",
+      "src/actions.ts",
+      "src/PeriodStorage.ts",
+      "src/configureStore.ts",
+      "src/main.ts",
+      "src/reducers/activities.ts",
+      "src/reducers/panel.ts",
+      "src/reducers/periods.ts",
+      "src/reducers/timer.ts",
+      "src/util/deepFreeze.ts",
+      "src/util/now.ts"
+    ],
+    "moduleNameMapper": {},
+    "moduleFileExtensions": [
+      "js",
+      "ts",
+      "tsx"
+    ],
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testMatch": [
+      "<rootDir>/src/**/?(*.)(spec|test).ts?(x)"
+    ],
+    "testResultsProcessor": "jest-junit",
+    "testEnvironment": "node",
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "./tsconfig.json"
+      }
+    }
+  },
+  "jest-junit": {
+    "output": "./report/junit.xml"
   }
 }
