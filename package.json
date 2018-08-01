@@ -81,7 +81,7 @@
       "src/app.tsx",
       "src/actions.ts",
       "src/PeriodStorage.ts",
-      "src/configureStore.ts",
+      "src/store.ts",
       "src/main.ts",
       "src/reducers/activities.ts",
       "src/reducers/panel.ts",
