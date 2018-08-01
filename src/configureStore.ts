@@ -1,7 +1,7 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, Store } from 'redux';
 import { PeriodStorage } from './PeriodStorage';
 import { timer } from './reducers/timer';
-import { populateTrackedTime, STOP_TIMER_TYPE, stopTimer, startTimer } from './actions';
+import { populateTrackedTime, STOP_TIMER_TYPE, stopTimer, startTimer, PeriodActions } from './actions';
 import * as moment from 'moment';
 import { now } from './util/now';
 const { remote, ipcRenderer } = require('electron');
@@ -22,6 +22,33 @@ console.log(`User data path: ${userDataPath}`);
 const saveState = (state: any) => {
     // TODO: add locking
     fs.writeFile(uiStateFile, JSON.stringify(state));
+};
+
+const loadPeriodsFromLog = (store: Store<{}>) => {
+    const timeTracked: {
+        [key: number]: [number, number];
+    } = {};
+    const periodsLogged: {
+        [key: number]: Array<[number, number, number]>;
+    } = {};
+
+    const today = moment();
+
+    periodList.fetchPeriods((activity, startTime, elapsedTime, periodId) => {
+        if (!timeTracked[activity.id]) {
+            timeTracked[activity.id] = [0, 0];
+            periodsLogged[activity.id] = [];
+        }
+        periodsLogged[activity.id].push([startTime, elapsedTime, periodId]);
+        // tslint:disable-next-line:no-magic-numbers
+        const start = moment(startTime * 1000);
+        timeTracked[activity.id][0] += elapsedTime;
+        if (today.isSame(start, 'day')) {
+            timeTracked[activity.id][1] += elapsedTime;
+        }
+    }, () => {
+        store.dispatch(populateTrackedTime(timeTracked, periodsLogged));
+    });
 };
 
 export default () => {
@@ -48,11 +75,18 @@ export default () => {
     const periodAddMiddleware = (store: any) => (
         // tslint:disable-next-line:no-any
         (next: any) => (action: any) => {
-            console.log(action);
             if (action.type === STOP_TIMER_TYPE) {
                 const state = store.getState();
                 const elapsedTime = now() - state.activityStartTime;
                 periodList.addPeriod(state.currentActivity, state.activityStartTime, elapsedTime);
+            }
+
+            if (action.type === PeriodActions.DeletePeriod) {
+                periodList.deletePeriod(action.id).then(() => {
+                    loadPeriodsFromLog(store);
+                }, error => {
+                    console.error(error);
+                });
             }
 
             return next(action);
@@ -60,31 +94,7 @@ export default () => {
     );
 
     const store = createStore(timer, initialState, applyMiddleware(periodAddMiddleware, stateSaveMiddleware));
-
-    const timeTracked: {
-        [key: number]: [number, number];
-    } = {};
-    const periodsLogged: {
-        [key: number]: Array<[number, number]>;
-    } = {};
-
-    const today = moment();
-
-    periodList.fetchPeriods((activity, startTime, elapsedTime) => {
-        if (!timeTracked[activity.id]) {
-            timeTracked[activity.id] = [0, 0];
-            periodsLogged[activity.id] = [];
-        }
-        periodsLogged[activity.id].push([startTime, elapsedTime]);
-        // tslint:disable-next-line:no-magic-numbers
-        const start = moment(startTime * 1000);
-        timeTracked[activity.id][0] += elapsedTime;
-        if (today.isSame(start, 'day')) {
-            timeTracked[activity.id][1] += elapsedTime;
-        }
-    }, () => {
-        store.dispatch(populateTrackedTime(timeTracked, periodsLogged));
-    });
+    loadPeriodsFromLog(store);
 
     let suspendedId: number | undefined;
 

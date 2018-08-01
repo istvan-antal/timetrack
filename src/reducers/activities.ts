@@ -9,7 +9,7 @@ interface ActivityAction {
     name?: string;
     trackedTime?: { [key: number]: [number, number] };
     trackedPeriods?: {
-        [key: number]: Array<[number, number]>;
+        [key: number]: Array<[number, number, number]>;
     };
 }
 
@@ -26,12 +26,13 @@ export const activities = (state: any , action: ActivityAction) => {
         // tslint:disable-next-line:no-any
         return state.map((activity: any) => {
             if (action.trackedTime![activity.id]) {
-                // console.log(action);
                 return {
                     ...activity,
                     trackedTime: action.trackedTime![activity.id][0],
                     trackedTimeToday: action.trackedTime![activity.id][1],
                     periods: action.trackedPeriods![activity.id].map(item => ({
+                        // tslint:disable-next-line:no-magic-numbers
+                        id: item[2],
                         startTime: item[0],
                         duration: item[1],
                     })),

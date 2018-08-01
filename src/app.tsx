@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Activity } from './entities';
 import {
     addActivity, deleteActivity, switchPanel,
-    startTimer, stopTimer, showActivity,
+    startTimer, stopTimer, showActivity, deletePeriod,
 } from './actions';
 import { TimerForm } from './views/TimerForm';
 import { TimerDisplay } from './views/TimerDisplay';
@@ -20,14 +20,15 @@ interface ComponentProps {
     currentActivity?: Activity;
     activityStartTime?: number;
     activities: Activity[];
-    addActivity: (name: string) => void;
-    deleteActivity: (id: number) => void;
-    showActivityList: () => void;
-    showTimerForm: () => void;
-    showActivity: (activity: Activity) => void;
-    showDisplay: () => void;
-    startTimer: (id: number) => void;
-    stopTimer: () => void;
+    addActivity(name: string): void;
+    deleteActivity(id: number): void;
+    deletePeriodAction(id: number): void;
+    showActivityList(): void;
+    showTimerForm(): void;
+    showActivity(activity: Activity): void;
+    showDisplay(): void;
+    startTimer(id: number): void;
+    stopTimer(): void;
 }
 
 class App extends React.Component<ComponentProps> {
@@ -57,6 +58,7 @@ class App extends React.Component<ComponentProps> {
         if (this.props.panel === 'ActivityView') {
             return <ActivityView
                 activity={this.props.selectedActivity!}
+                deletePeriodAction={this.props.deletePeriodAction}
                 goBack={goBack}
             />;
         }
@@ -92,28 +94,31 @@ class App extends React.Component<ComponentProps> {
 
 // tslint:disable-next-line:no-any
 const mapDispatchToProps = (dispatch: any) => ({
-    addActivity: (name: string) => {
+    addActivity(name: string) {
         dispatch(addActivity(name));
     },
-    deleteActivity: (id: number) => {
+    deleteActivity(id: number) {
         dispatch(deleteActivity(id));
     },
-    showActivityList: () => {
+    deletePeriodAction(id: number) {
+        dispatch(deletePeriod(id));
+    },
+    showActivityList() {
         dispatch(switchPanel('ActivityList'));
     },
-    showTimerForm: () => {
+    showTimerForm() {
         dispatch(switchPanel('TimerForm'));
     },
-    showActivity: (activity: Activity) => {
+    showActivity(activity: Activity) {
         dispatch(showActivity(activity));
     },
-    showDisplay: () => {
+    showDisplay() {
         dispatch(switchPanel('TimerDisplay'));
     },
-    startTimer: (id: number) => {
+    startTimer(id: number) {
         dispatch(startTimer(id));
     },
-    stopTimer: () => {
+    stopTimer() {
         dispatch(stopTimer());
     },
 });

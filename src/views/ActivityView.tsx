@@ -13,6 +13,7 @@ interface Props {
     addActivityAction(name: string): void;
     deleteActivityAction(id: number): void;*/
     activity: Activity;
+    deletePeriodAction(id: number): void;
     goBack(): void;
 }
 
@@ -51,7 +52,14 @@ export class ActivityView extends React.Component<Props> {
                                             <td style={{ textAlign: 'right' }}>
                                                 {formatDuration(period.duration)}
                                             </td>
-                                            <td></td>
+                                            <td>
+                                                <span
+                                                    onClick={() => {
+                                                        this.props.deletePeriodAction(period.id);
+                                                    }}
+                                                    className="icon icon-cancel-circled"
+                                                />
+                                            </td>
                                         </tr>
                                     ))}
                                 <tr>

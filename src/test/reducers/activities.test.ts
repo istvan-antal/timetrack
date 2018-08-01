@@ -3,6 +3,8 @@ import {
     // addActivity,/* populateTrackedTime,*/
     deleteActivity,
     populateTrackedTime,
+    TrackedTimeType,
+    TrackedPeriodsType,
 } from '../../actions';
 import { deepFreeze } from '../../util/deepFreeze';
 
@@ -41,25 +43,30 @@ describe('reducers/activities', () => {
             name: 'Biking',
             trackedTime: 302,
             trackedTimeToday: 0,
-            periods: [{ startTime: 0, duration: 302 }],
+            periods: [{ id: 1, startTime: 0, duration: 302 }],
         }, {
             id: 10,
             name: 'Cooking',
             trackedTime: 3600,
             trackedTimeToday: 0,
-            periods: [ { startTime: 0, duration: 3600 } ],
+            periods: [ { id: 3, startTime: 0, duration: 3600 } ],
         }]);
-        const nextState = activities(initialState, populateTrackedTime({
+        // tslint:disable-next-line:no-any
+        const trackedTime: TrackedTimeType = {
             // tslint:disable-next-line:no-magic-numbers
             2: [302, 0],
             // tslint:disable-next-line:no-magic-numbers
             10: [3600, 0],
-        }, {
+        };
+        // tslint:disable-next-line:no-any
+        const tackedPeriods: TrackedPeriodsType = {
             // tslint:disable-next-line:no-magic-numbers
-            2: [[0, 302]],
+            2: [[0, 302, 1]],
             // tslint:disable-next-line:no-magic-numbers
-            10: [[0, 3600]],
-        }));
+            10: [[0, 3600, 3]],
+        };
+        // tslint:disable-next-line:no-any
+        const nextState = activities(initialState, populateTrackedTime(trackedTime, tackedPeriods));
         expect(nextState).toEqual(expectedSate);
     });
 

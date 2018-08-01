@@ -15,13 +15,22 @@ export enum ActivityActions {
     PopulatePeriods = 'populatePeriods',
 }
 
-export const addActivity = (name: string) =>  ({
+export enum PeriodActions {
+    DeletePeriod = 'deletePeriod',
+}
+
+export const addActivity = (name: string) => ({
     type: ADD_ACTIVITY_TYPE,
     name,
 });
 
-export const deleteActivity = (id: number) =>  ({
+export const deleteActivity = (id: number) => ({
     type: DELETE_ACTIVITY_TYPE,
+    id,
+});
+
+export const deletePeriod = (id: number) => ({
+    type: PeriodActions.DeletePeriod,
     id,
 });
 
@@ -44,9 +53,17 @@ export const stopTimer = () =>  ({
     type: STOP_TIMER_TYPE,
 });
 
+export interface TrackedTimeType {
+    [key: number]: [number, number];
+}
+
+export interface TrackedPeriodsType {
+    [key: number]: Array<[number, number, number]>;
+}
+
 export const populateTrackedTime = (
-    trackedTime: { [key: number]: [number, number] },
-    trackedPeriods: { [key: number]: Array<[number, number]> },
+    trackedTime: TrackedTimeType,
+    trackedPeriods: TrackedPeriodsType,
 ) => ({
     type: TRACKED_TIME_POPULATE,
     trackedTime,

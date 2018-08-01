@@ -37,8 +37,51 @@ export class PeriodStorage {
             }
         });
     }
-    // tslint:disable-next-line:no-any
-    fetchPeriods(onPeriod: (activity: Activity, startTime: number, elapsedTime: number) => any, onDone: () => any) {
+    async deletePeriod(id: number) {
+        return new Promise((resolve, reject) => {
+            if (!fs.existsSync(this.filePath)) {
+                resolve();
+                return;
+            }
+
+            // TODO: use fs.read instead for better scalability
+            const lines: string[] = [];
+            // tslint:disable-next-line:no-any
+            fs.readFile(this.filePath, (error: any, data: any) => {
+                if (error) {
+                    reject(error);
+                }
+                let position = 0;
+                while (position < data.length) {
+                    const lineEndPosition: number = data.indexOf('\n', position);
+                    const lineString = data.slice(position, lineEndPosition).toString();
+                    const fields = lineString.split(',');
+
+                    // console.log(+fields[0], id);
+                    if (position && +fields[0] === id) {
+                        console.log('del', position, fields);
+                        position = lineEndPosition + 1;
+                        continue;
+                    }
+
+                    lines.push(lineString);
+                    position = lineEndPosition + 1;
+                }
+                fs.writeFile(this.filePath, lines.join('\n') + '\n', (writeError: Error | undefined) => {
+                    if (writeError) {
+                        reject(writeError);
+                    } else {
+                        resolve(true);
+                    }
+                });
+            });
+        });
+    }
+    fetchPeriods(
+        // tslint:disable-next-line:no-any
+        onPeriod: (activity: Activity, startTime: number, elapsedTime: number, periodId: number) => any,
+        // tslint:disable-next-line:no-any
+        onDone: () => any) {
         if (!fs.existsSync(this.filePath)) {
             onDone();
             return;
@@ -52,7 +95,7 @@ export class PeriodStorage {
                 name: fields[1],
                 periods: [],
             };
-            onPeriod(activity, +fields[3], +fields[4]);
+            onPeriod(activity, +fields[3], +fields[4], +fields[0]);
         };
         // TODO: use fs.read instead for better scalability
         // tslint:disable-next-line:no-any
